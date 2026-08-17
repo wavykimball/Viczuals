@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+/* ── Satoshi (Fontshare, exact match) ─────────────────────── */
+@font-face {
+  font-family: 'Satoshi:Medium';
+  src: url('/fonts/Satoshi-Medium.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── General Sans (Fontshare, exact match) ────────────────── */
+@font-face {
+  font-family: 'General Sans:Medium';
+  src: url('/fonts/GeneralSans-Medium.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'General Sans:Semibold';
+  src: url('/fonts/GeneralSans-Semibold.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Inter Tight Regular (Google Fonts download) ──────────── */
+@font-face {
+  font-family: 'Inter Tight:Regular';
+  src: url('/fonts/InterTight-Regular.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Lufga → Outfit variable (closest geometric sans sub) ─── */
+@font-face {
+  font-family: 'Lufga:Regular';
+  src: url('/fonts/Outfit.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lufga:Medium';
+  src: url('/fonts/Outfit.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lufga:Bold';
+  src: url('/fonts/Outfit.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Force correct weights via class-name substring match ─── */
+[class*="Lufga:Bold"]           { font-weight: 700 !important; }
+[class*="Lufga:Medium"]         { font-weight: 500 !important; }
+[class*="Lufga:Regular"]        { font-weight: 400 !important; }
+[class*="General_Sans:Semibold"]{ font-weight: 600 !important; }
+[class*="General_Sans:Medium"]  { font-weight: 500 !important; }
+[class*="Satoshi:Medium"]       { font-weight: 500 !important; }

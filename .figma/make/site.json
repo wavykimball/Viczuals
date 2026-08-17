@@ -1,0 +1,10 @@
+{
+  "description": "This static-first landing page showcases core content, service information, and work samples, providing users with easy access to essential details and contact options.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
