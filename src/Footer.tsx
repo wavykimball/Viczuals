@@ -1,15 +1,15 @@
 import ExtContainer from '@/imports/ExtContainer-1/index'
 
-export default function Footer() {
+export default function Footer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
   return (
     <>
       {/* Outer wrapper has no background — ExtContainer's own blue-gradient
           background shows through the 20 px padding on all four sides.
-          InerContainer is 1400×681 px; (1440−1400)/2 = 20 px left/right,
-          height = 681 + 40 = 721 px gives 20 px top/bottom. */}
+          InerContainer is 1400×684 px; (1440−1400)/2 = 20 px left/right,
+          height = 684 + 40 = 724 px gives 20 px top/bottom. */}
       <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <div style={{ position: 'relative', width: 1440, height: 721, flexShrink: 0 }}>
-          <ExtContainer />
+        <div style={{ position: 'relative', width: 1440, height: 724, flexShrink: 0, overflow: 'hidden' }}>
+          <ExtContainer onNavigate={onNavigate} />
         </div>
       </div>
 

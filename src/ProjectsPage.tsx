@@ -63,9 +63,9 @@ function ProjectCard({ img, name, service, duration, desc }: CardProps) {
           left: 0,
           right: 0,
           height: expanded ? IMG_EXPANDED : IMG_DEFAULT,
-          borderRadius: expanded ? 32 : '32px 32px 0 0',
+          borderRadius: '32px 32px 0 0',
           overflow: 'hidden',
-          transition: `height 0.38s ${ease}, border-radius 0.38s ${ease}`,
+          transition: `height 0.38s ${ease}`,
         }}
       >
         {/* Photo */}

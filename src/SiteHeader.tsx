@@ -50,13 +50,23 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
 
   useEffect(() => { setMenuOpen(false) }, [currentPage])
 
-  const SECTION_OFFSETS: Record<string, number> = {
-    Home: 0, About: 1040, Services: 4170, Contact: 5004,
+  const SECTION_IDS: Record<string, string> = {
+    Home: 'viczuals-page',
+    About: 'about-section',
+    Services: 'services-section',
+    Contact: 'contact-section',
   }
 
-  function scrollTo(offset: number) {
-    const zoom = Math.min(1, window.innerWidth / 1440)
-    window.scrollTo({ top: offset * zoom, behavior: 'smooth' })
+  function scrollToSection(section: string) {
+    if (section === 'Home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+    const id = SECTION_IDS[section]
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   function handleOverlayClick(e: React.MouseEvent) {
@@ -68,10 +78,9 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
       if (text === 'Projects') { onNavigate('projects'); setMenuOpen(false); return }
       if (currentPage !== 'home') {
         onNavigate('home')
-        const offset = SECTION_OFFSETS[text] ?? 0
-        setTimeout(() => scrollTo(offset), 120)
+        setTimeout(() => scrollToSection(text), 120)
       } else {
-        scrollTo(SECTION_OFFSETS[text] ?? 0)
+        scrollToSection(text)
       }
       setMenuOpen(false)
     }
@@ -92,10 +101,10 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
           display: 'flex',
           alignItems: 'center',
           transition: 'background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease',
-          background: scrolled || menuOpen ? 'rgba(0,0,0,0.5)' : 'transparent',
-          backdropFilter: scrolled || menuOpen ? 'blur(16px) saturate(1.4)' : 'none',
-          WebkitBackdropFilter: scrolled || menuOpen ? 'blur(16px) saturate(1.4)' : 'none',
-          borderBottom: scrolled || menuOpen ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent',
+          background: scrolled || menuOpen ? 'rgba(8, 8, 12, 0.72)' : 'transparent',
+          backdropFilter: scrolled || menuOpen ? 'blur(28px) saturate(1.6) brightness(0.85)' : 'none',
+          WebkitBackdropFilter: scrolled || menuOpen ? 'blur(28px) saturate(1.6) brightness(0.85)' : 'none',
+          borderBottom: scrolled || menuOpen ? '1px solid rgba(255,255,255,0.07)' : '1px solid transparent',
         }}
       >
         <div

@@ -38,36 +38,71 @@ function Icon() {
   );
 }
 
-function Frame() {
+function Frame({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
+  const handleClick = () => {
+    if (onNavigate) {
+      onNavigate('home');
+      setTimeout(() => {
+        const el = document.getElementById('about-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    }
+  };
   return (
-    <div className="content-stretch flex gap-[8px] items-center justify-center relative shrink-0">
+    <div onClick={handleClick} className="group cursor-pointer content-stretch flex gap-[8px] items-center justify-center relative shrink-0">
       <p className="[word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[28px] not-italic relative shrink-0 text-[#e6efff] text-[24px] tracking-[-0.5px] whitespace-nowrap" style={{ fontFeatureSettings: '"liga" 0' }}>
         About
       </p>
-      <Icon />
+      <div className="overflow-hidden transition-all duration-200 opacity-0 scale-0 w-0 group-hover:opacity-100 group-hover:scale-100 group-hover:w-[24px] flex items-center">
+        <Icon />
+      </div>
     </div>
   );
 }
 
-function Frame1() {
+function Frame1({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
+  const handleProjectsClick = () => {
+    if (onNavigate) onNavigate('projects');
+  };
+  const handleServicesClick = () => {
+    if (onNavigate) {
+      onNavigate('home');
+      setTimeout(() => {
+        const el = document.getElementById('services-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    }
+  };
   return (
-    <div className="content-stretch flex gap-[16px] h-[40px] items-center relative shrink-0 w-full">
-      <Frame />
-      <p className="[word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[28px] not-italic relative shrink-0 text-[#e6efff] text-[24px] tracking-[-0.5px] whitespace-nowrap" style={{ fontFeatureSettings: '"liga" 0' }}>
-        Projects
-      </p>
-      <p className="[word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[28px] not-italic relative shrink-0 text-[#e6efff] text-[24px] tracking-[-0.5px] whitespace-nowrap" style={{ fontFeatureSettings: '"liga" 0' }}>
-        Services
-      </p>
+    <div className="content-stretch flex gap-[24px] h-[40px] items-center relative shrink-0 w-full">
+      <Frame onNavigate={onNavigate} />
+      
+      <div onClick={handleProjectsClick} className="group cursor-pointer content-stretch flex gap-[8px] items-center justify-center relative shrink-0">
+        <p className="[word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[28px] not-italic relative shrink-0 text-[#e6efff] text-[24px] tracking-[-0.5px] whitespace-nowrap" style={{ fontFeatureSettings: '"liga" 0' }}>
+          Projects
+        </p>
+        <div className="overflow-hidden transition-all duration-200 opacity-0 scale-0 w-0 group-hover:opacity-100 group-hover:scale-100 group-hover:w-[24px] flex items-center">
+          <Icon />
+        </div>
+      </div>
+
+      <div onClick={handleServicesClick} className="group cursor-pointer content-stretch flex gap-[8px] items-center justify-center relative shrink-0">
+        <p className="[word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[28px] not-italic relative shrink-0 text-[#e6efff] text-[24px] tracking-[-0.5px] whitespace-nowrap" style={{ fontFeatureSettings: '"liga" 0' }}>
+          Services
+        </p>
+        <div className="overflow-hidden transition-all duration-200 opacity-0 scale-0 w-0 group-hover:opacity-100 group-hover:scale-100 group-hover:w-[24px] flex items-center">
+          <Icon />
+        </div>
+      </div>
     </div>
   );
 }
 
-function Frame5() {
+function Frame5({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col gap-[12px] items-start min-w-px relative self-stretch">
       <p className="[word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[#5b616e] text-[16px] tracking-[-0.08px] w-full">Menu</p>
-      <Frame1 />
+      <Frame1 onNavigate={onNavigate} />
     </div>
   );
 }
@@ -170,21 +205,21 @@ function Frame4() {
   );
 }
 
-function Frame6() {
+function Frame6({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
   return (
     <div className="absolute content-stretch flex gap-[64px] items-start left-[52px] top-[50px] w-[1295px]">
-      <Frame5 />
+      <Frame5 onNavigate={onNavigate} />
       <Frame7 />
       <Frame4 />
     </div>
   );
 }
 
-function InerContainer() {
+function InerContainer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-black h-[681px] left-1/2 overflow-clip rounded-[24px] top-[calc(50%-0.5px)] w-[1400px]" data-name="iner container">
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-black h-[684px] left-1/2 overflow-clip rounded-[24px] top-[calc(50%-0.5px)] w-[1400px]" data-name="iner container">
       <ViczualsWhiteLogo />
-      <Frame6 />
+      <Frame6 onNavigate={onNavigate} />
       <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Lufga:Regular',sans-serif] justify-center leading-[0] left-[52px] not-italic text-[#6b6b6b] text-[12px] top-[194px] tracking-[0.5px] w-[411px]">
         <p className="leading-[16px]">©2026 Viczuals All Rights Reserved.</p>
       </div>
@@ -198,7 +233,7 @@ function InerContainer() {
           <circle cx="9.5" cy="9.5" fill="#8DB3FF" id="Ellipse 20" r="9.5" />
         </svg>
       </div>
-      <div className="absolute left-[20px] size-[19px] top-[645px]">
+      <div className="absolute left-[20px] size-[19px] top-[648px]">
         <svg className="absolute block inset-0 size-full" fill="none" height="19" preserveAspectRatio="none" viewBox="0 0 19 19" width="19">
           <circle cx="9.5" cy="9.5" fill="#8DB3FF" id="Ellipse 18" r="9.5" />
         </svg>
@@ -210,7 +245,7 @@ function InerContainer() {
           </svg>
         </div>
       </div>
-      <div className="absolute left-[1356px] size-[19px] top-[645px]">
+      <div className="absolute left-[1356px] size-[19px] top-[648px]">
         <svg className="absolute block inset-0 size-full" fill="none" height="19" preserveAspectRatio="none" viewBox="0 0 19 19" width="19">
           <circle cx="9.5" cy="9.5" fill="#8DB3FF" id="Ellipse 20" r="9.5" />
         </svg>
@@ -219,7 +254,7 @@ function InerContainer() {
   );
 }
 
-export default function ExtContainer() {
+export default function ExtContainer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
   return (
     <div className="relative size-full" data-name="ext container">
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -229,7 +264,7 @@ export default function ExtContainer() {
       <div className="-translate-x-1/2 absolute h-[1299px] left-1/2 top-[-182px] w-[1562px]" data-name="image 26">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage26} />
       </div>
-      <InerContainer />
+      <InerContainer onNavigate={onNavigate} />
     </div>
   );
 }
