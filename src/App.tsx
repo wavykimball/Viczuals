@@ -6,10 +6,10 @@ import ProjectsPage from './ProjectsPage'
 
 /* ─── ticker helper ──────────────────────────────────────────────────────────
    Finds the first child of `container`, clones it alongside the original into
-   a new wrapper div, and CSS animation drives it as a seamless infinite loop.
-   tickerClass must be listed in the <style> below with the right animation.
+   a new wrapper div, and drives it smoothly using requestAnimationFrame.
+   Provides decelerated speed on hover if slowOnHover is true.
 */
-function initTicker(container: HTMLElement, tickerClass: string) {
+function initTicker(container: HTMLElement, tickerClass: string, speed: number, slowOnHover: boolean, gap: string) {
   if (container.dataset.tickerDone) return
   container.dataset.tickerDone = '1'
   const inner = container.firstElementChild as HTMLElement | null
@@ -17,9 +17,11 @@ function initTicker(container: HTMLElement, tickerClass: string) {
   const clone = inner.cloneNode(true) as HTMLElement
   const wrapper = document.createElement('div')
   wrapper.className = tickerClass
+  wrapper.style.display = 'flex'
+  wrapper.style.width = 'max-content'
+  wrapper.style.gap = gap
+  
   for (const el of [inner, clone] as HTMLElement[]) {
-    // Reset the absolute centering Tailwind baked in (position, left, top,
-    // transform AND the CSS `translate` property used by Tailwind v4).
     el.style.cssText =
       'position:relative!important;left:0!important;top:0!important;' +
       'transform:none!important;translate:none!important;' +
@@ -29,6 +31,33 @@ function initTicker(container: HTMLElement, tickerClass: string) {
   container.insertBefore(wrapper, inner)
   wrapper.appendChild(inner)
   wrapper.appendChild(clone)
+
+  let x = 0
+  let isHovered = false
+  
+  if (slowOnHover) {
+    container.addEventListener('mouseenter', () => { isHovered = true })
+    container.addEventListener('mouseleave', () => { isHovered = false })
+  }
+  
+  let currentSpeed = speed
+
+  const tick = () => {
+    const targetSpeed = isHovered ? speed * 0.25 : speed
+    // Smooth deceleration / acceleration
+    currentSpeed += (targetSpeed - currentSpeed) * 0.1
+    
+    x -= currentSpeed
+    const halfWidth = wrapper.scrollWidth / 2
+    if (halfWidth > 0 && Math.abs(x) >= halfWidth) {
+      x = x + halfWidth
+    }
+    
+    wrapper.style.transform = `translateX(${x}px)`
+    requestAnimationFrame(tick)
+  }
+  
+  setTimeout(() => requestAnimationFrame(tick), 50)
 }
 
 export type Page = 'home' | 'projects'
@@ -58,7 +87,7 @@ export default function App() {
     const strip = document.querySelector(
       '#viczuals-page .overflow-x-auto.overflow-y-clip'
     ) as HTMLElement | null
-    if (strip) initTicker(strip, 'hero-ticker')
+    if (strip) initTicker(strip, 'hero-ticker', 1.2, true, '12px')
   }, [page])
 
   /* ── Blue band tickers (Frame58 @ 1700 px, Frame52 @ 4030 px) ── */
@@ -67,7 +96,7 @@ export default function App() {
     const bands = document.querySelectorAll<HTMLElement>(
       '#viczuals-page .bg-\\[\\#085aff\\].overflow-clip'
     )
-    bands.forEach(band => initTicker(band, 'brand-ticker'))
+    bands.forEach(band => initTicker(band, 'brand-ticker', 1.8, false, '64px'))
   }, [page])
 
   /* ── Scroll to top only when entering the projects page ── */
@@ -87,16 +116,16 @@ export default function App() {
         <>
           <div
             id="viczuals-page"
-            style={{ position: 'relative', width: 1440, height: 5760 }}
+            style={{ position: 'relative', width: 1440, height: 'auto' }}
           >
             <HeaderVarioUi />
           </div>
 
           {/* Spacer so the footer sits clearly below the contact section */}
-          <div style={{ height: 60, width: '100%', background: '#000' }} />
+          <div style={{ height: 100, width: '100%', background: '#000' }} />
 
           <div id="viczuals-footer" style={{ width: '100%' }}>
-            <Footer />
+            <Footer onNavigate={navigate} />
           </div>
         </>
       )}
@@ -105,7 +134,7 @@ export default function App() {
         <>
           <ProjectsPage />
           <div id="viczuals-footer" style={{ width: '100%' }}>
-            <Footer />
+            <Footer onNavigate={navigate} />
           </div>
         </>
       )}
@@ -123,19 +152,8 @@ export default function App() {
 
         /* ── Hero image ticker ──────────────────────────────────────────── */
         #viczuals-page .overflow-x-auto.overflow-y-clip { overflow: hidden !important; }
-        .hero-ticker {
-          display: flex !important;
-          width: max-content !important;
-          gap: 12px;
-          animation: heroTicker 28s linear infinite;
-        }
-        .hero-ticker:hover { animation-play-state: paused; }
         .hero-ticker > div {
           --tw-translate-x: 0 !important;
-        }
-        @keyframes heroTicker {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
         }
 
         /* ── Blue brand-strip tickers ───────────────────────────────────── */
@@ -144,16 +162,6 @@ export default function App() {
           top: 0 !important;
           left: 0 !important;
           height: 100% !important;
-          width: max-content !important;
-          display: flex !important;
-          align-items: center !important;
-          gap: 64px !important;
-          animation: brandTicker 18s linear infinite;
-        }
-        .brand-ticker:hover { animation-play-state: paused; }
-        @keyframes brandTicker {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
         }
       `}</style>
     </div>
