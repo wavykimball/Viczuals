@@ -56,9 +56,17 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Lufga:SemiBold';
+  src: url('/fonts/Outfit.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ── Force correct weights via class-name substring match ─── */
 [class*="Lufga:Bold"]           { font-weight: 700 !important; }
+[class*="Lufga:SemiBold"]       { font-weight: 600 !important; }
 [class*="Lufga:Medium"]         { font-weight: 500 !important; }
 [class*="Lufga:Regular"]        { font-weight: 400 !important; }
 [class*="General_Sans:Semibold"]{ font-weight: 600 !important; }
