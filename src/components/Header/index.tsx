@@ -41,10 +41,10 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
   const [menuOpen, setMenuOpen]   = useState(false)
   const [hovered, setHovered]     = useState(false)
   const [scrolled, setScrolled]   = useState(false)
-  const [isMobile, setIsMobile]   = useState(window.innerWidth < 768)
+  const [isMobile, setIsMobile]   = useState((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768))
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    const handleResize = () => setIsMobile((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768))
     const onScroll = () => setScrolled(window.scrollY > 24)
     
     window.addEventListener('scroll', onScroll, { passive: true })
