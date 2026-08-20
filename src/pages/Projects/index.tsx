@@ -157,7 +157,7 @@ export default function ProjectsPage() {
       id="viczuals-projects-page"
       style={{
         position: 'relative',
-        width: 1440,
+        width: '100%',
         background: '#000',
       }}
     >
@@ -199,7 +199,6 @@ export default function ProjectsPage() {
         </h1>
       </div>
 
-      {/* Grid */}
       <div
         style={{
           display: 'flex',
@@ -207,6 +206,9 @@ export default function ProjectsPage() {
           gap: 24,
           alignItems: 'center',
           padding: '24px 80px 80px',
+          width: '100%',
+          maxWidth: 1440,
+          margin: '0 auto',
         }}
       >
         {pairs.map(([a, b], i) => (

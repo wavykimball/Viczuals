@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import svgPaths from "./svgPaths";
 import imgImage23 from '@/assets/images/hero_bg.png';
 import imgImgFrame from '@/assets/images/home_card_bg_1.png';
@@ -262,9 +263,56 @@ function Frame31() {
 }
 
 function Frame34() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const speedRef = useRef(1.2);
+  
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    
+    let offset = 0;
+    let frameId: number;
+    
+    const animate = () => {
+      offset += speedRef.current;
+      
+      const halfWidth = el.scrollWidth / 2;
+      if (halfWidth > 0 && offset >= halfWidth) {
+        offset -= halfWidth;
+      }
+      
+      el.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      frameId = requestAnimationFrame(animate);
+    };
+    
+    frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
   return (
-    <div className="relative h-[416px] overflow-x-auto overflow-y-clip w-[1440px]">
-      <Frame31 />
+    <div 
+      className="relative h-[416px] overflow-hidden w-full"
+      onMouseEnter={() => { speedRef.current = 0.3; }}
+      onMouseLeave={() => { speedRef.current = 1.2; }}
+    >
+      <div 
+        ref={containerRef}
+        className="flex"
+        style={{ width: 'max-content' }}
+      >
+        <div className="flex gap-[12px] items-center shrink-0 pr-[12px]">
+          <Frame29 />
+          <Frame30 />
+          <Frame32 />
+          <Frame33 />
+        </div>
+        <div className="flex gap-[12px] items-center shrink-0">
+          <Frame29 />
+          <Frame30 />
+          <Frame32 />
+          <Frame33 />
+        </div>
+      </div>
     </div>
   );
 }
@@ -1647,8 +1695,37 @@ function Frame51() {
 
 function Frame52() {
   return (
-    <div className="relative bg-[#085aff] h-[140px] overflow-clip w-[1440px]">
-      <Frame51 />
+    <div className="relative bg-[#085aff] h-[140px] overflow-clip w-full">
+      <style>{`
+        @keyframes blueBandTickerAnimation1 {
+          0% { transform: translate3d(0, -50%, 0); }
+          100% { transform: translate3d(-50%, -50%, 0); }
+        }
+        .blue-ticker-wrapper-1 {
+          display: flex;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: max-content;
+          animation: blueBandTickerAnimation1 28s linear infinite;
+        }
+      `}</style>
+      <div className="blue-ticker-wrapper-1">
+        <div className="flex gap-[64px] items-center shrink-0 pr-[64px]">
+          <Frame49 />
+          <Frame50 />
+          <Frame55 />
+          <Frame56 />
+          <Frame57 />
+        </div>
+        <div className="flex gap-[64px] items-center shrink-0">
+          <Frame49 />
+          <Frame50 />
+          <Frame55 />
+          <Frame56 />
+          <Frame57 />
+        </div>
+      </div>
     </div>
   );
 }
@@ -1993,23 +2070,75 @@ function Frame59() {
 
 function Frame58() {
   return (
-    <div className="relative bg-[#085aff] h-[140px] overflow-clip w-[1440px]">
-      <Frame59 />
+    <div className="relative bg-[#085aff] h-[140px] overflow-clip w-full">
+      <style>{`
+        @keyframes blueBandTickerAnimation2 {
+          0% { transform: translate3d(0, -50%, 0); }
+          100% { transform: translate3d(-50%, -50%, 0); }
+        }
+        .blue-ticker-wrapper-2 {
+          display: flex;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: max-content;
+          animation: blueBandTickerAnimation2 28s linear infinite;
+        }
+      `}</style>
+      <div className="blue-ticker-wrapper-2">
+        <div className="flex gap-[64px] items-center shrink-0 pr-[64px]">
+          <Frame60 />
+          <Frame61 />
+          <Frame62 />
+          <Frame63 />
+          <Frame64 />
+        </div>
+        <div className="flex gap-[64px] items-center shrink-0">
+          <Frame60 />
+          <Frame61 />
+          <Frame62 />
+          <Frame63 />
+          <Frame64 />
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function HomePage() {
+  const [heroHeight, setHeroHeight] = useState<number | string>('auto');
+
+  useEffect(() => {
+    const updateHeight = () => {
+      const zoom = Math.min(1, window.innerWidth / 1440);
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate height in design pixels to fit viewport minus top padding (120px)
+      const requiredDesignHeight = viewportHeight / zoom - 120;
+      
+      // Keep a minimum height to prevent overlapping on very short viewports
+      setHeroHeight(Math.max(840, requiredDesignHeight));
+    };
+    
+    updateHeight();
+    window.addEventListener('resize', updateHeight, { passive: true });
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
-    <div className="bg-black flex flex-col items-center gap-[100px] w-[1440px] pt-[120px] pb-[40px] relative" data-name="Header - Vario UI">
+    <div className="bg-black flex flex-col items-center gap-[100px] w-full pt-[120px] pb-[40px] relative" data-name="Header - Vario UI">
       {/* Background images */}
-      <div className="-translate-x-1/2 absolute h-[1279px] left-[calc(50%+0.5px)] top-0 w-[1537px] pointer-events-none" data-name="image 23">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage23} />
+      <div className="absolute inset-x-0 h-[1279px] top-0 pointer-events-none" data-name="image 23">
+        <img alt="" className="w-full h-full object-cover pointer-events-none" src={imgImage23} />
       </div>
-      <div className="-translate-x-1/2 absolute bg-gradient-to-b from-[8.285%] from-[rgba(20,58,162,0)] h-[836px] left-1/2 to-[79.337%] to-black top-[463px] w-[1440px] pointer-events-none" data-name="bg" />
+      <div className="absolute bg-gradient-to-b from-[8.285%] from-[rgba(20,58,162,0)] h-[836px] inset-x-0 to-[79.337%] to-black top-[463px] pointer-events-none" data-name="bg" />
 
       {/* 1. Hero Section */}
-      <div className="flex flex-col items-center gap-[60px] w-full relative z-10">
+      <div 
+        className="flex flex-col items-center justify-between w-full relative z-10 box-border pb-[45px]"
+        style={{ height: heroHeight }}
+      >
+        <div className="h-[20px] md:h-[40px]" />
         <Frame39 />
         <Frame34 />
       </div>
