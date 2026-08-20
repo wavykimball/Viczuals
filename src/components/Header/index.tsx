@@ -93,6 +93,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
     <>
       {/* ── Always-visible sticky header ─────────────────────────────────── */}
       <header
+        id="viczuals-header"
         style={{
           position: 'fixed',
           top: 0, left: 0, right: 0,
@@ -109,7 +110,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
       >
         <div
           style={{
-            width: '100%', maxWidth: 1440, margin: '0 auto',
+            width: '100%',
             padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}
         >

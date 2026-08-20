@@ -4,8 +4,17 @@ import imgImage26 from '@/assets/images/footer_mesh_gradient.png';
 
 function ViczualsWhiteLogo() {
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[521.657px] left-[calc(50%+0.32px)] top-[calc(50%+155.33px)] w-[1292.637px]" data-name="viczuals white logo">
-      <svg className="absolute block inset-0 size-full" fill="none" height="521.657" preserveAspectRatio="none" viewBox="0 0 1292.64 521.657" width="1292.64">
+    <div 
+      className="-translate-x-1/2 -translate-y-1/2 absolute pointer-events-none"
+      style={{
+        left: '50%',
+        top: 'calc(50% + 155.33px)',
+        width: '92%',
+        aspectRatio: '1292.64 / 521.657',
+      }}
+      data-name="viczuals white logo"
+    >
+      <svg className="block size-full" fill="none" viewBox="0 0 1292.64 521.657">
         <g id="viczuals white logo">
           <g id="Viczuals">
             <path d={svgPaths.p16406300} fill="#2C2C2C" />
@@ -210,7 +219,7 @@ function Frame4() {
 
 function Frame6({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
   return (
-    <div className="absolute content-stretch flex gap-[64px] items-start left-[52px] top-[50px] w-[1295px]">
+    <div className="absolute content-stretch flex justify-between items-start left-[52px] right-[52px] top-[50px]">
       <Frame5 onNavigate={onNavigate} />
       <Frame7 />
       <Frame4 />
@@ -220,7 +229,16 @@ function Frame6({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => vo
 
 function InerContainer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-black h-[684px] left-1/2 overflow-clip rounded-[24px] top-[calc(50%-0.5px)] w-[1400px]" data-name="iner container">
+    <div 
+      className="-translate-x-1/2 -translate-y-1/2 absolute bg-black overflow-clip rounded-[24px]" 
+      style={{
+        left: '50%',
+        top: '50%',
+        width: 'calc(100% - 40px)',
+        height: 'calc(100% - 40px)',
+      }}
+      data-name="iner container"
+    >
       <ViczualsWhiteLogo />
       <Frame6 onNavigate={onNavigate} />
       <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Lufga:Regular',sans-serif] justify-center leading-[0] left-[52px] not-italic text-[#6b6b6b] text-[12px] top-[194px] tracking-[0.5px] w-[411px]">
@@ -231,24 +249,24 @@ function InerContainer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects'
           <circle cx="9.5" cy="9.5" fill="#8DB3FF" id="Ellipse 18" r="9.5" />
         </svg>
       </div>
-      <div className="absolute left-[1356px] size-[19px] top-[18px]">
+      <div className="absolute right-[20px] size-[19px] top-[18px]">
         <svg className="absolute block inset-0 size-full" fill="none" height="19" preserveAspectRatio="none" viewBox="0 0 19 19" width="19">
           <circle cx="9.5" cy="9.5" fill="#8DB3FF" id="Ellipse 20" r="9.5" />
         </svg>
       </div>
-      <div className="absolute left-[20px] size-[19px] top-[648px]">
+      <div className="absolute left-[20px] size-[19px] bottom-[18px]">
         <svg className="absolute block inset-0 size-full" fill="none" height="19" preserveAspectRatio="none" viewBox="0 0 19 19" width="19">
           <circle cx="9.5" cy="9.5" fill="#8DB3FF" id="Ellipse 18" r="9.5" />
         </svg>
       </div>
-      <div className="-translate-x-1/2 absolute h-0 left-[calc(50%-0.5px)] top-[154px] w-[1295px]">
+      <div className="absolute h-0 left-[52px] right-[52px] top-[154px]">
         <div className="absolute inset-[-1px_0_0_0]">
-          <svg className="block size-full" fill="none" height="1" preserveAspectRatio="none" viewBox="0 0 1295 1" width="1295">
-            <line id="Line 4" stroke="#232323" x2="1295" y1="0.5" y2="0.5" />
+          <svg className="block size-full" fill="none" height="1" preserveAspectRatio="none" viewBox="0 0 1295 1" width="100%">
+            <line id="Line 4" stroke="#232323" x2="100%" y1="0.5" y2="0.5" />
           </svg>
         </div>
       </div>
-      <div className="absolute left-[1356px] size-[19px] top-[648px]">
+      <div className="absolute right-[20px] size-[19px] bottom-[18px]">
         <svg className="absolute block inset-0 size-full" fill="none" height="19" preserveAspectRatio="none" viewBox="0 0 19 19" width="19">
           <circle cx="9.5" cy="9.5" fill="#8DB3FF" id="Ellipse 20" r="9.5" />
         </svg>
@@ -261,11 +279,11 @@ export default function ExtContainer({ onNavigate }: { onNavigate?: (page: 'home
   return (
     <div className="relative size-full" data-name="ext container">
       <div aria-hidden className="absolute inset-0 pointer-events-none">
-        <div className="absolute bg-white inset-0" />
+        <div className="absolute bg-black inset-0" />
         <img alt="" className="absolute max-w-none object-cover opacity-20 size-full" src={imgExtContainer} />
       </div>
-      <div className="-translate-x-1/2 absolute h-[1299px] left-1/2 top-[-182px] w-[1562px]" data-name="image 26">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage26} />
+      <div className="absolute h-[1299px] inset-x-0 top-[-182px]" data-name="image 26">
+        <img alt="" className="w-full h-full object-cover pointer-events-none" src={imgImage26} />
       </div>
       <InerContainer onNavigate={onNavigate} />
     </div>

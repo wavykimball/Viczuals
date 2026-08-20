@@ -71,7 +71,7 @@ export default function App() {
   useEffect(() => {
     const apply = () => {
       const z = String(Math.min(1, window.innerWidth / 1440))
-      ;['viczuals-page', 'viczuals-projects-page', 'viczuals-footer'].forEach(id => {
+      ;['viczuals-header', 'viczuals-page', 'viczuals-projects-page', 'viczuals-footer'].forEach(id => {
         const el = document.getElementById(id) as HTMLElement | null
         if (el) el.style.zoom = z
       })
@@ -120,7 +120,7 @@ export default function App() {
         <>
           <div
             id="viczuals-page"
-            style={{ position: 'relative', width: 1440, height: 'auto' }}
+            style={{ position: 'relative', width: '100%', height: 'auto' }}
           >
             <HomePage />
           </div>
@@ -138,7 +138,7 @@ export default function App() {
         <>
           <div
             id="viczuals-projects-page"
-            style={{ position: 'relative', width: 1440, height: 'auto' }}
+            style={{ position: 'relative', width: '100%', height: 'auto' }}
           >
             <ProjectsPage />
           </div>
