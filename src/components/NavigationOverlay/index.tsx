@@ -1,4 +1,4 @@
-import svgPaths from "./svg-tv510gpvhq";
+import svgPaths from "./svgPaths";
 type ComponentProps = {
   className?: string;
   property1?: "cancel-01" | "equal-sign" | "plus-sign";

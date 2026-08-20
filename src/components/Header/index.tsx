@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import svgPaths from '@/imports/Frame2147226854/svg-tv510gpvhq'
-import NavOverlay from '@/imports/Frame2147226854/index'
-import type { Page } from './App'
+import svgPaths from '@/components/NavigationOverlay/svgPaths'
+import NavOverlay from '@/components/NavigationOverlay'
+import type { Page } from '@/App'
 
 type Props = {
   onNavigate: (page: Page) => void

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import HeaderVarioUi from '@/imports/HeaderVarioUi/index'
-import SiteHeader from './SiteHeader'
-import Footer from './Footer'
-import ProjectsPage from './ProjectsPage'
+import HomePage from '@/pages/Home'
+import SiteHeader from '@/components/Header'
+import Footer from '@/components/Footer'
+import ProjectsPage from '@/pages/Projects'
 
 /* ─── ticker helper ──────────────────────────────────────────────────────────
    Finds the first child of `container`, clones it alongside the original into
@@ -77,9 +77,13 @@ export default function App() {
       })
     }
     apply()
+    const timer = setTimeout(apply, 100)
     window.addEventListener('resize', apply, { passive: true })
-    return () => window.removeEventListener('resize', apply)
-  }, [])
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('resize', apply)
+    }
+  }, [page])
 
   /* ── Hero image ticker (Frame34 overflow-x-auto strip) ── */
   useEffect(() => {
@@ -118,13 +122,13 @@ export default function App() {
             id="viczuals-page"
             style={{ position: 'relative', width: 1440, height: 'auto' }}
           >
-            <HeaderVarioUi />
+            <HomePage />
           </div>
 
           {/* Spacer so the footer sits clearly below the contact section */}
           <div style={{ height: 100, width: '100%', background: '#000' }} />
 
-          <div id="viczuals-footer" style={{ width: '100%' }}>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
             <Footer onNavigate={navigate} />
           </div>
         </>
@@ -132,8 +136,14 @@ export default function App() {
 
       {page === 'projects' && (
         <>
-          <ProjectsPage />
-          <div id="viczuals-footer" style={{ width: '100%' }}>
+          <div
+            id="viczuals-projects-page"
+            style={{ position: 'relative', width: 1440, height: 'auto' }}
+          >
+            <ProjectsPage />
+          </div>
+          
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
             <Footer onNavigate={navigate} />
           </div>
         </>
@@ -144,10 +154,10 @@ export default function App() {
            (overflow-x:hidden on a non-root element would break sticky) */
         body { overflow-x: clip; }
 
-        /* ── Hide the static Figma-import header (SiteHeader replaces it) */
+        /* ── Hide the static raw header (SiteHeader replaces it) */
         #viczuals-page > div > div:last-child { display: none !important; }
 
-        /* ── Hide the original Figma-import footer (Footer.tsx replaces it) */
+        /* ── Hide the original raw footer (Footer replaces it) */
         #viczuals-page [data-name="ext container"] { display: none !important; }
 
         /* ── Hero image ticker ──────────────────────────────────────────── */
