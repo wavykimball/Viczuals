@@ -106,7 +106,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
           position: 'fixed',
           top: 0, left: 0, right: 0,
           zIndex: 201,
-          height: isMobile ? 76 : 96,
+          height: isMobile ? 300 : 96,
           display: 'flex',
           alignItems: 'center',
           transition: 'background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease, height 0.35s ease',
@@ -119,7 +119,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
         <div
           style={{
             width: '100%',
-            padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: isMobile ? '0 80px' : '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}
         >
           {/* Logo */}
@@ -128,7 +128,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
             aria-label="Viczuals home"
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, flexShrink: 0 }}
           >
-            <svg fill="none" height="48" viewBox="0 0 48 48" width="48">
+            <svg fill="none" height={isMobile ? 140 : 48} viewBox="0 0 48 48" width={isMobile ? 140 : 48}>
               <path d={svgPaths.p3bdb9620} fill="white" stroke="#E6E6E6" strokeWidth="0.363636" />
               <path d={svgPaths.p791b400} fill="black" />
               <path d={svgPaths.p20985870} fill="white" />
@@ -143,7 +143,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
-              padding: 0, width: 40, height: 40, position: 'relative', flexShrink: 0,
+              padding: 0, width: isMobile ? 120 : 40, height: isMobile ? 120 : 40, position: 'relative', flexShrink: 0,
             }}
           >
             {(['plus', 'equals', 'close'] as const).map(key => (
@@ -152,7 +152,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
                 style={{
                   position: 'absolute',
                   top: '50%', left: '50%',
-                  transform: `translate(-50%, -50%) rotate(${iconState === key ? 0 : key === 'plus' ? -45 : 45}deg) scale(${iconState === key ? 1 : 0.6})`,
+                  transform: `translate(-50%, -50%) rotate(${iconState === key ? 0 : key === 'plus' ? -45 : 45}deg) scale(${iconState === key ? (isMobile ? 3.5 : 1) : (isMobile ? 2 : 0.6)})`,
                   opacity: iconState === key ? 1 : 0,
                   transition: 'opacity 0.22s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1)',
                   display: 'flex',
@@ -171,11 +171,11 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
       {/* ── Nav overlay — single frosted layer, no competing backgrounds ─── */}
       <div
         aria-hidden={!menuOpen}
-        className="nav-overlay-panel"
+        className={`nav-overlay-panel ${isMobile ? 'is-mobile' : ''}`}
         style={{
           position: 'fixed',
-          top: isMobile ? 76 : 96, left: 0, right: 0,
-          height: 536,
+          top: isMobile ? 300 : 96, left: 0, right: 0,
+          ...(isMobile ? { height: 1600 } : { height: 536 }),
           zIndex: 200,
           pointerEvents: menuOpen ? 'auto' : 'none',
           opacity: menuOpen ? 1 : 0,
@@ -209,6 +209,26 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
         .nav-overlay-panel p[class*="text-[40px]"][class*="Lufga:Medium"]:hover {
           color: #ffffff !important;
           text-decoration-color: #ffffff !important;
+        }
+        
+        /* Mobile Native Scaling Overrides */
+        .nav-overlay-panel.is-mobile > div {
+          padding: 80px 80px !important;
+        }
+        .nav-overlay-panel.is-mobile .gap-\\[48px\\] {
+          gap: 80px !important;
+        }
+        .nav-overlay-panel.is-mobile .gap-\\[8px\\] {
+          gap: 24px !important;
+          align-items: center !important;
+        }
+        .nav-overlay-panel.is-mobile p[class*="text-[40px]"] {
+          font-size: 88px !important;
+          line-height: 96px !important;
+        }
+        .nav-overlay-panel.is-mobile p[class*="text-[14px]"] {
+          font-size: 60px !important;
+          line-height: 60px !important;
         }
       `}</style>
     </>
