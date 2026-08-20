@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import FooterContent from './FooterContent'
 
 export default function Footer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isMobile, setIsMobile] = useState((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768))
 
   useEffect(() => {
     const apply = () => {
-      setIsMobile(window.innerWidth < 768)
+      setIsMobile((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768))
     }
     apply()
     window.addEventListener('resize', apply, { passive: true })

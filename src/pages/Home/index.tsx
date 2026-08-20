@@ -265,10 +265,10 @@ function Frame31() {
 function Frame34() {
   const containerRef = useRef<HTMLDivElement>(null);
   const speedRef = useRef(1.2);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768));
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768));
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -406,10 +406,10 @@ function Frame48({ isMobile }: { isMobile: boolean }) {
 }
 
 function Frame39() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768));
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768));
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -2157,15 +2157,24 @@ function MobileProjectCard({
         border: `56px solid ${borderColor}`,
         borderRadius: "210px",
         width: "1280px",
+        height: "1280px",
         transform: `rotate(${rotation}deg)`,
         zIndex,
         boxShadow: "0px 50px 100px rgba(0,0,0,0.5)"
       }}
     >
-      <div className="w-full h-[875px] relative">
-        <img src={imageSrc} className="w-full h-full object-cover" alt={title} />
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#2a2a2a] to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-[70px] flex justify-between items-start">
+      <img src={imageSrc} className="absolute inset-0 w-full h-full object-cover" alt={title} />
+      
+      <div 
+        className="absolute bottom-0 left-0 right-0 flex flex-col p-[70px]"
+        style={{
+          background: 'rgba(0,0,0,0.52)',
+          backdropFilter: 'blur(28px) saturate(1.6) brightness(0.85)',
+          WebkitBackdropFilter: 'blur(28px) saturate(1.6) brightness(0.85)',
+          borderTop: '2px solid rgba(255,255,255,0.1)',
+        }}
+      >
+        <div className="flex justify-between items-start mb-[40px]">
           <h3 className="font-['Lufga:Bold',sans-serif] text-white text-[84px] m-0 leading-[90px]">{title}</h3>
           <div className="flex flex-col items-end">
             <p className="font-['Lufga:Medium',sans-serif] text-[#FFB800] text-[42px] uppercase m-0 leading-[50px]">{metadata.split(' - ')[0]}</p>
@@ -2174,8 +2183,6 @@ function MobileProjectCard({
             )}
           </div>
         </div>
-      </div>
-      <div className="p-[70px] pt-[35px] bg-[#2a2a2a]">
         <p className="font-['Lufga:Regular',sans-serif] text-[#e0e0e0] text-[48px] leading-[70px] m-0">
           {description}
         </p>
@@ -2335,11 +2342,11 @@ function MobileContactList() {
 
 export default function HomePage() {
   const [heroHeight, setHeroHeight] = useState<number | string>('auto');
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768));
 
   useEffect(() => {
     const updateHeight = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768));
       const zoom = Math.min(1, window.innerWidth / 1440);
       const viewportHeight = window.innerHeight;
       

@@ -71,13 +71,35 @@ export default function App() {
      the page works correctly — which transform:scale breaks.               */
   useEffect(() => {
     const apply = () => {
-      const width = window.innerWidth
-      setIsMobile(width < 1440)
-      const z = String(Math.min(1, width / 1440))
-      ;['viczuals-page', 'viczuals-projects-page', 'viczuals-footer'].forEach(id => {
-        const el = document.getElementById(id) as HTMLElement | null
-        if (el) el.style.zoom = z
-      })
+      const isMobileDevice = typeof screen !== 'undefined' && Math.min(screen.width, screen.height) < 768;
+      const viewportMeta = document.querySelector('meta[name="viewport"]');
+      
+      if (isMobileDevice) {
+        if (viewportMeta) viewportMeta.setAttribute('content', 'width=1440');
+        setIsMobile(true);
+        // Mobile natively handles scaling via the viewport tag. Reset any zooms.
+        ;['viczuals-page', 'viczuals-projects-page', 'viczuals-footer'].forEach(id => {
+          const el = document.getElementById(id) as HTMLElement | null
+          if (el) {
+            el.style.zoom = '';
+            el.style.minWidth = '';
+            el.style.width = '100%';
+          }
+        })
+      } else {
+        if (viewportMeta) viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0');
+        const width = window.innerWidth;
+        setIsMobile(width < 1440);
+        const z = String(Math.min(1, width / 1440));
+        ;['viczuals-page', 'viczuals-projects-page', 'viczuals-footer'].forEach(id => {
+          const el = document.getElementById(id) as HTMLElement | null
+          if (el) {
+            el.style.zoom = z;
+            el.style.minWidth = '';
+            el.style.width = '100%';
+          }
+        })
+      }
     }
     apply()
     const timer = setTimeout(apply, 100)
@@ -157,6 +179,8 @@ export default function App() {
         html, body {
           overflow-x: clip !important;
           max-width: 100% !important;
+          -webkit-text-size-adjust: 100%;
+          text-size-adjust: 100%;
         }
 
         /* ── Hide the static raw header (SiteHeader replaces it) */

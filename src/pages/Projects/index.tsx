@@ -139,10 +139,10 @@ function ProjectCard({ img, name, service, duration, desc, isMobile }: CardProps
 }
 
 export default function ProjectsPage() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isMobile, setIsMobile] = useState((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768))
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    const handleResize = () => setIsMobile((typeof screen !== 'undefined' ? Math.min(screen.width, screen.height) < 768 : window.innerWidth < 768))
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
