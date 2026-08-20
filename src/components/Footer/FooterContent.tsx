@@ -2,6 +2,106 @@ import svgPaths from "./svgPaths";
 import imgExtContainer from '@/assets/images/footer_glow_mask.png';
 import imgImage26 from '@/assets/images/footer_mesh_gradient.png';
 
+function MobileFooter({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
+  const handleProjectsClick = () => {
+    if (onNavigate) onNavigate('projects');
+  };
+  const handleServicesClick = () => {
+    if (onNavigate) {
+      onNavigate('home');
+      setTimeout(() => {
+        const el = document.getElementById('services-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    }
+  };
+  const handleAboutClick = () => {
+    if (onNavigate) {
+      onNavigate('home');
+      setTimeout(() => {
+        const el = document.getElementById('about-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    }
+  };
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:viczuals@gmail.com';
+  };
+
+  return (
+    <div className="relative bg-black w-[1360px] overflow-hidden rounded-[80px] flex flex-col pt-[150px] pb-[350px] px-[80px] gap-[80px] z-10 shadow-[0px_-20px_60px_rgba(0,0,0,0.5)]" data-name="mobile footer">
+      <div className="absolute left-[40px] size-[38px] top-[40px]">
+        <svg className="absolute block inset-0 size-full" fill="none" viewBox="0 0 19 19"><circle cx="9.5" cy="9.5" fill="#8DB3FF" r="9.5" /></svg>
+      </div>
+      <div className="absolute right-[40px] size-[38px] top-[40px]">
+        <svg className="absolute block inset-0 size-full" fill="none" viewBox="0 0 19 19"><circle cx="9.5" cy="9.5" fill="#8DB3FF" r="9.5" /></svg>
+      </div>
+      
+      <div className="flex flex-col gap-[60px] z-10 mt-[20px]">
+        <p className="font-['Lufga:Medium',sans-serif] text-[#6b6b6b] text-[48px] m-0">Menu</p>
+        <div onClick={handleAboutClick} className="flex items-center gap-[24px] cursor-pointer w-max">
+          <p className="font-['Lufga:Medium',sans-serif] text-white text-[64px] m-0">About</p>
+          <div className="bg-[#242424] rounded-full p-[16px] flex items-center justify-center">
+             <svg className="block size-[32px]" fill="none" viewBox="0 0 8.01386 8.01387"><path d={svgPaths.p35420e00} fill="white" /></svg>
+          </div>
+        </div>
+        <p onClick={handleServicesClick} className="font-['Lufga:Medium',sans-serif] text-white text-[64px] m-0 cursor-pointer w-max">Services</p>
+        <p onClick={handleProjectsClick} className="font-['Lufga:Medium',sans-serif] text-white text-[64px] m-0 cursor-pointer w-max">Projects</p>
+      </div>
+
+      <div className="flex flex-col gap-[40px] z-10 mt-[40px]">
+        <p className="font-['Lufga:Medium',sans-serif] text-[#6b6b6b] text-[48px] m-0">Email</p>
+        <p onClick={handleEmailClick} className="font-['Lufga:Medium',sans-serif] text-white text-[64px] m-0 tracking-[1px] cursor-pointer w-max">viczuals@gmail.com</p>
+      </div>
+
+      <div className="flex flex-col gap-[60px] z-10 mt-[40px]">
+        <p className="font-['Lufga:Medium',sans-serif] text-[#6b6b6b] text-[48px] m-0">Social</p>
+        <div className="flex items-center gap-[40px]">
+          <div className="bg-white rounded-full flex items-center justify-center size-[120px] cursor-pointer">
+             <svg className="block size-[48px]" fill="none" viewBox="0 0 13.3329 13.3329"><path d={svgPaths.p12da800} fill="#1E2022" /></svg>
+          </div>
+          <div className="bg-white rounded-full flex items-center justify-center size-[120px] cursor-pointer">
+             <svg className="block size-[48px]" fill="none" viewBox="0 0 12 10.6667"><path d={svgPaths.p249ea700} fill="#1E2022" /></svg>
+          </div>
+          <div className="bg-white rounded-full flex items-center justify-center size-[120px] cursor-pointer">
+             <svg className="block size-[48px]" fill="none" viewBox="0 0 12.7067 12.0006"><path d={svgPaths.pb221d00} fill="#1E2022" /></svg>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-[60px] mt-[80px] z-10">
+        <div className="w-full h-[2px] bg-[#232323]"></div>
+        <p className="font-['Lufga:Regular',sans-serif] text-[#6b6b6b] text-[36px] m-0 tracking-[1px]">©2026 Viczuals All Rights Reserved.</p>
+      </div>
+
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-[-100px] w-[1300px] h-[521px] pointer-events-none z-0">
+        <svg className="absolute block inset-0 size-full" fill="none" height="521.657" preserveAspectRatio="none" viewBox="0 0 1292.64 521.657" width="1292.64">
+          <g id="viczuals white logo">
+            <g id="Viczuals">
+              <path d={svgPaths.p16406300} fill="#2C2C2C" />
+              <path d={svgPaths.p1c39d000} fill="#2C2C2C" />
+              <path d={svgPaths.p24aa5b80} fill="#2C2C2C" />
+              <path d={svgPaths.p2dc8080} fill="#2C2C2C" />
+              <path d={svgPaths.p12bbe580} fill="#2C2C2C" />
+              <path d={svgPaths.p28feb700} fill="#2C2C2C" />
+              <path d={svgPaths.p14f9b900} fill="#2C2C2C" />
+              <path d={svgPaths.p236eb340} fill="#2C2C2C" />
+            </g>
+            <path d={svgPaths.p18378680} fill="#2C2C2C" id="Ellipse 2" stroke="#2C2C2C" strokeWidth="2.23008" />
+          </g>
+        </svg>
+      </div>
+
+      <div className="absolute left-[40px] size-[38px] bottom-[40px] z-10">
+        <svg className="absolute block inset-0 size-full" fill="none" viewBox="0 0 19 19"><circle cx="9.5" cy="9.5" fill="#8DB3FF" r="9.5" /></svg>
+      </div>
+      <div className="absolute right-[40px] size-[38px] bottom-[40px] z-10">
+        <svg className="absolute block inset-0 size-full" fill="none" viewBox="0 0 19 19"><circle cx="9.5" cy="9.5" fill="#8DB3FF" r="9.5" /></svg>
+      </div>
+    </div>
+  );
+}
+
 function ViczualsWhiteLogo() {
   return (
     <div 
@@ -275,15 +375,33 @@ function InerContainer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects'
   );
 }
 
-export default function ExtContainer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
+export default function ExtContainer({ onNavigate, isMobile }: { onNavigate?: (page: 'home' | 'projects') => void, isMobile?: boolean }) {
+  if (isMobile) {
+    return (
+      <div className="relative w-full flex justify-center p-[40px]" data-name="ext container">
+        {/* Blue background elements */}
+        <div aria-hidden className="absolute inset-0 pointer-events-none">
+          <div className="absolute bg-black inset-0" />
+          <img alt="" className="absolute max-w-none object-cover opacity-20 size-full" src={imgExtContainer} />
+        </div>
+        <div className="absolute h-[1299px] inset-x-0 top-[-182px] pointer-events-none overflow-hidden" data-name="image 26">
+          <img alt="" className="w-full h-full object-cover" src={imgImage26} />
+        </div>
+        
+        {/* Black footer content */}
+        <MobileFooter onNavigate={onNavigate} />
+      </div>
+    );
+  }
+
   return (
     <div className="relative size-full" data-name="ext container">
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div className="absolute bg-black inset-0" />
         <img alt="" className="absolute max-w-none object-cover opacity-20 size-full" src={imgExtContainer} />
       </div>
-      <div className="absolute h-[1299px] inset-x-0 top-[-182px]" data-name="image 26">
-        <img alt="" className="w-full h-full object-cover pointer-events-none" src={imgImage26} />
+      <div className="absolute h-[1299px] inset-x-0 top-[-182px] pointer-events-none" data-name="image 26">
+        <img alt="" className="w-full h-full object-cover" src={imgImage26} />
       </div>
       <InerContainer onNavigate={onNavigate} />
     </div>
