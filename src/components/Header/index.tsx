@@ -41,11 +41,19 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
   const [menuOpen, setMenuOpen]   = useState(false)
   const [hovered, setHovered]     = useState(false)
   const [scrolled, setScrolled]   = useState(false)
+  const [isMobile, setIsMobile]   = useState(window.innerWidth < 768)
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
     const onScroll = () => setScrolled(window.scrollY > 24)
+    
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', handleResize, { passive: true })
+    
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   useEffect(() => { setMenuOpen(false) }, [currentPage])
@@ -98,10 +106,10 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
           position: 'fixed',
           top: 0, left: 0, right: 0,
           zIndex: 201,
-          height: 88,
+          height: isMobile ? 76 : 96,
           display: 'flex',
           alignItems: 'center',
-          transition: 'background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease',
+          transition: 'background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease, height 0.35s ease',
           background: scrolled || menuOpen ? 'rgba(8, 8, 12, 0.72)' : 'transparent',
           backdropFilter: scrolled || menuOpen ? 'blur(28px) saturate(1.6) brightness(0.85)' : 'none',
           WebkitBackdropFilter: scrolled || menuOpen ? 'blur(28px) saturate(1.6) brightness(0.85)' : 'none',
@@ -166,12 +174,12 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
         className="nav-overlay-panel"
         style={{
           position: 'fixed',
-          top: 88, left: 0, right: 0,
+          top: isMobile ? 76 : 96, left: 0, right: 0,
           height: 536,
           zIndex: 200,
           pointerEvents: menuOpen ? 'auto' : 'none',
           opacity: menuOpen ? 1 : 0,
-          transition: 'opacity 0.3s ease',
+          transition: 'opacity 0.3s ease, top 0.35s ease',
           /* Single glass layer — background + blur live here only */
           background: 'rgba(8, 8, 12, 0.72)',
           backdropFilter: 'blur(28px) saturate(1.6) brightness(0.85)',

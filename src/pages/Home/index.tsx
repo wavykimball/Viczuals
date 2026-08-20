@@ -265,6 +265,13 @@ function Frame31() {
 function Frame34() {
   const containerRef = useRef<HTMLDivElement>(null);
   const speedRef = useRef(1.2);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   
   useEffect(() => {
     const el = containerRef.current;
@@ -289,71 +296,88 @@ function Frame34() {
     return () => cancelAnimationFrame(frameId);
   }, []);
 
+  const scale = isMobile ? 1.85 : 1;
+
   return (
     <div 
-      className="relative h-[416px] overflow-hidden w-full"
+      className="relative overflow-hidden w-full"
+      style={{ height: isMobile ? 770 : 416 }}
       onMouseEnter={() => { speedRef.current = 0.3; }}
       onMouseLeave={() => { speedRef.current = 1.2; }}
     >
-      <div 
-        ref={containerRef}
-        className="flex"
-        style={{ width: 'max-content' }}
+      <div
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          width: isMobile ? `${100 / scale}%` : "100%",
+        }}
       >
-        <div className="flex gap-[12px] items-center shrink-0 pr-[12px]">
-          <Frame29 />
-          <Frame30 />
-          <Frame32 />
-          <Frame33 />
-        </div>
-        <div className="flex gap-[12px] items-center shrink-0">
-          <Frame29 />
-          <Frame30 />
-          <Frame32 />
-          <Frame33 />
+        <div 
+          ref={containerRef}
+          className="flex"
+          style={{ width: "max-content" }}
+        >
+          <div className="flex gap-[12px] items-center shrink-0 pr-[12px]">
+            <Frame29 />
+            <Frame30 />
+            <Frame32 />
+            <Frame33 />
+          </div>
+          <div className="flex gap-[12px] items-center shrink-0">
+            <Frame29 />
+            <Frame30 />
+            <Frame32 />
+            <Frame33 />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function Label() {
+function Label({ isMobile }: { isMobile: boolean }) {
   return (
     <div className="content-stretch flex items-center justify-center px-[8px] py-[2px] relative shrink-0" data-name="label">
-      <p className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-black whitespace-nowrap">Contact Us</p>
+      <p
+        className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] not-italic relative shrink-0 text-black whitespace-nowrap"
+        style={{ fontSize: isMobile ? 56 : 14, lineHeight: isMobile ? "64px" : "20px" }}
+      >Contact Us</p>
     </div>
   );
 }
 
-function Label1() {
+function Label1({ isMobile }: { isMobile: boolean }) {
   return (
     <div className="content-stretch flex items-center justify-center px-[8px] py-[2px] relative shrink-0" data-name="label">
-      <p className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-white whitespace-nowrap">What we do</p>
+      <p
+        className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] not-italic relative shrink-0 text-white whitespace-nowrap"
+        style={{ fontSize: isMobile ? 56 : 14, lineHeight: isMobile ? "64px" : "20px" }}
+      >What we do</p>
     </div>
   );
 }
 
-function Frame48() {
+function Frame48({ isMobile }: { isMobile: boolean }) {
   const handleContactClick = () => {
-    const el = document.getElementById('contact-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById("contact-section");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleWhatWeDoClick = () => {
-    const el = document.getElementById('services-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById("services-section");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="content-stretch flex gap-[12px] items-start relative shrink-0">
+    <div className="content-stretch flex items-start relative shrink-0" style={{ gap: isMobile ? 48 : 12 }}>
       <div
         onClick={handleContactClick}
         className="group cursor-pointer bg-white relative rounded-[1000px] shrink-0"
         data-name="Button"
       >
         <div className="flex flex-row items-center justify-center overflow-clip rounded-[inherit] size-full">
-          <div className="content-stretch flex items-center justify-center p-[8px] relative size-full">
-            <Label />
+          <div className="content-stretch flex items-center justify-center relative size-full" style={{ padding: isMobile ? 36 : 8 }}>
+            <Label isMobile={isMobile} />
           </div>
         </div>
       </div>
@@ -363,12 +387,12 @@ function Frame48() {
         data-name="Button"
       >
         <div className="flex flex-row items-center justify-center overflow-clip rounded-[inherit] size-full">
-          <div className="content-stretch flex items-center justify-center p-[8px] relative size-full">
-            <Label1 />
-            <div className="relative shrink-0 size-[20px]" data-name="arrow-right-s-line">
+          <div className="content-stretch flex items-center justify-center relative size-full" style={{ padding: isMobile ? 36 : 8, gap: isMobile ? 16 : 8 }}>
+            <Label1 isMobile={isMobile} />
+            <div className="relative shrink-0" style={{ width: isMobile ? 64 : 20, height: isMobile ? 64 : 20 }} data-name="arrow-right-s-line">
               <div className="absolute inset-0 overflow-clip" data-name="arrow-right-s-line">
                 <div className="absolute inset-[23.49%_33.33%_23.48%_34.26%]" data-name="Vector">
-                  <svg className="absolute block inset-0 size-full" fill="none" height="10.6066" preserveAspectRatio="none" viewBox="0 0 6.48185 10.6066" width="6.48185">
+                  <svg className="absolute block inset-0 size-full" fill="none" height="100%" preserveAspectRatio="none" viewBox="0 0 6.48185 10.6066" width="100%">
                     <path d={svgPaths.p3b549c00} fill="white" id="Vector" />
                   </svg>
                 </div>
@@ -382,42 +406,43 @@ function Frame48() {
 }
 
 function Frame39() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="relative content-stretch flex flex-col gap-[24px] items-center w-[880px]">
-      <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Strategic Creative Growth Agency</p>
-      <Frame48 />
+    <div
+      className="relative content-stretch flex flex-col items-center"
+      style={{ gap: isMobile ? 70 : 24, width: isMobile ? 1440 : 880 }}
+    >
+      <p
+        className="[word-break:break-word] font-['Lufga:Bold',sans-serif] not-italic relative shrink-0 text-center text-white tracking-[-1.92px]"
+        style={{
+          fontSize: isMobile ? 148 : 64,
+          lineHeight: isMobile ? "152px" : "70px",
+          width: isMobile ? 1280 : 622,
+        }}
+      >Strategic Creative Growth Agency</p>
+      <Frame48 isMobile={isMobile} />
     </div>
   );
 }
 
-function Frame40() {
+function SectionHeading({ text, isMobile }: { text: string; isMobile?: boolean }) {
   return (
-    <div className="relative content-stretch flex flex-col items-center w-[1440px]">
-      <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Our Projects</p>
-    </div>
-  );
-}
-
-function Frame46() {
-  return (
-    <div className="relative content-stretch flex flex-col items-center w-[1440px]">
-      <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">About Us</p>
-    </div>
-  );
-}
-
-function Frame44() {
-  return (
-    <div className="relative content-stretch flex flex-col items-center w-[1440px]">
-      <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Our Services</p>
-    </div>
-  );
-}
-
-function Frame53() {
-  return (
-    <div className="relative content-stretch flex flex-col items-center w-[1440px]">
-      <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Send Us A Message</p>
+    <div className="relative content-stretch flex flex-col items-center w-full">
+      <p
+        className="[word-break:break-word] font-['Lufga:Bold',sans-serif] not-italic relative shrink-0 text-center text-white tracking-[-1.92px]"
+        style={{
+          fontSize: isMobile ? 128 : 64,
+          lineHeight: isMobile ? "136px" : "70px",
+          width: isMobile ? 1280 : 622,
+        }}
+      >{text}</p>
     </div>
   );
 }
@@ -1020,9 +1045,9 @@ function Frame14() {
   );
 }
 
-function ImgIllustration() {
+function ImgIllustration({ isMobileCard }: { isMobileCard?: boolean }) {
   return (
-    <div className="-translate-x-1/2 absolute bg-[#e9eced] h-[280px] left-[calc(50%-1.17px)] overflow-clip rounded-[24px] top-[184px] w-[383px]" data-name="img/illustration">
+    <div className={isMobileCard ? "relative bg-[#e9eced] h-[280px] w-[383px] overflow-clip rounded-[24px]" : "-translate-x-1/2 absolute bg-[#e9eced] h-[280px] left-[calc(50%-1.17px)] overflow-clip rounded-[24px] top-[184px] w-[383px]"} data-name="img/illustration">
       <SketchAnnotationElementBrushPenAbstractWindLine />
       <div className="absolute h-[280px] left-0 mix-blend-multiply opacity-2 top-0 w-[588px]" data-name="noise" />
       <Frame1 />
@@ -1220,9 +1245,9 @@ function Frame16() {
   );
 }
 
-function ImgIllustration1() {
+function ImgIllustration1({ isMobileCard }: { isMobileCard?: boolean }) {
   return (
-    <div className="-translate-x-1/2 absolute bg-[#e9eced] h-[280px] left-[calc(50%-2.5px)] overflow-clip rounded-[24px] top-[184px] w-[383px]" data-name="img/illustration">
+    <div className={isMobileCard ? "relative bg-[#e9eced] h-[280px] w-[383px] overflow-clip rounded-[24px]" : "-translate-x-1/2 absolute bg-[#e9eced] h-[280px] left-[calc(50%-1.5px)] overflow-clip rounded-[24px] top-[184px] w-[383px]"} data-name="img/illustration">
       <SketchAnnotationElementBrushPenAbstractWindLine1 />
       <div className="absolute h-[280px] left-0 mix-blend-multiply opacity-2 top-0 w-[588px]" data-name="noise" />
       <Frame5 />
@@ -1420,9 +1445,9 @@ function Frame18() {
   );
 }
 
-function ImgIllustration2() {
+function ImgIllustration2({ isMobileCard }: { isMobileCard?: boolean }) {
   return (
-    <div className="-translate-x-1/2 absolute bg-[#e9eced] h-[280px] left-[calc(50%-1.83px)] overflow-clip rounded-[24px] top-[184px] w-[383px]" data-name="img/illustration">
+    <div className={isMobileCard ? "relative bg-[#e9eced] h-[280px] w-[383px] overflow-clip rounded-[24px]" : "-translate-x-1/2 absolute bg-[#e9eced] h-[280px] left-[calc(50%-1.83px)] overflow-clip rounded-[24px] top-[184px] w-[383px]"} data-name="img/illustration">
       <SketchAnnotationElementBrushPenAbstractWindLine2 />
       <div className="absolute h-[280px] left-0 mix-blend-multiply opacity-2 top-0 w-[588px]" data-name="noise" />
       <Frame9 />
@@ -2105,11 +2130,216 @@ function Frame58() {
   );
 }
 
+function MobileProjectCard({
+  imageSrc,
+  borderColor,
+  title,
+  metadata,
+  description,
+  rotation,
+  zIndex,
+  topOffset
+}: {
+  imageSrc: string;
+  borderColor: string;
+  title: string;
+  metadata: string;
+  description: string;
+  rotation: number;
+  zIndex: number;
+  topOffset: string;
+}) {
+  return (
+    <div
+      className="sticky flex flex-col overflow-hidden bg-[#242424]"
+      style={{
+        top: topOffset,
+        border: `56px solid ${borderColor}`,
+        borderRadius: "210px",
+        width: "1280px",
+        transform: `rotate(${rotation}deg)`,
+        zIndex,
+        boxShadow: "0px 50px 100px rgba(0,0,0,0.5)"
+      }}
+    >
+      <div className="w-full h-[875px] relative">
+        <img src={imageSrc} className="w-full h-full object-cover" alt={title} />
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#2a2a2a] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-[70px] flex justify-between items-start">
+          <h3 className="font-['Lufga:Bold',sans-serif] text-white text-[84px] m-0 leading-[90px]">{title}</h3>
+          <div className="flex flex-col items-end">
+            <p className="font-['Lufga:Medium',sans-serif] text-[#FFB800] text-[42px] uppercase m-0 leading-[50px]">{metadata.split(' - ')[0]}</p>
+            {metadata.split(' - ')[1] && (
+              <p className="font-['Lufga:Medium',sans-serif] text-[#FFB800] text-[42px] uppercase m-0 leading-[50px]">{metadata.split(' - ')[1]}</p>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="p-[70px] pt-[35px] bg-[#2a2a2a]">
+        <p className="font-['Lufga:Regular',sans-serif] text-[#e0e0e0] text-[48px] leading-[70px] m-0">
+          {description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function MobileProjectsList() {
+  const dummyDesc = "[short description here] blorem blipsum dolor sit bamat minim mollit non deserunt ullamco lorem ipsum bolor sit amat est. [short description here] blorem blipsum dolor sit bamat minim mollit non.";
+  
+  return (
+    <div className="flex flex-col items-center w-full pb-[150px] pt-[60px]">
+      <div className="flex flex-col items-center w-full relative" style={{ gap: "1000px" }}>
+        <MobileProjectCard
+          imageSrc={imgThumbnail1}
+          borderColor="#FFB800"
+          title="Mesh Gradients"
+          metadata="BRAND IDENTITY - (4 Weeks)"
+          description={dummyDesc}
+          rotation={-3}
+          zIndex={1}
+          topOffset="300px"
+        />
+        <MobileProjectCard
+          imageSrc={imgThumbnail2}
+          borderColor="#0055FF"
+          title="Mesh Gradients"
+          metadata="BRAND IDENTITY - (4 Weeks)"
+          description={dummyDesc}
+          rotation={3}
+          zIndex={2}
+          topOffset="600px"
+        />
+        <MobileProjectCard
+          imageSrc={imgThumbnail}
+          borderColor="#EEEEEE"
+          title="Mesh Gradients"
+          metadata="BRAND IDENTITY - (4 Weeks)"
+          description={dummyDesc}
+          rotation={-2}
+          zIndex={3}
+          topOffset="900px"
+        />
+      </div>
+    </div>
+  );
+}
+
+function MobileServiceItem({ title, description, GraphicComponent }: { title: string, description: string, GraphicComponent: React.ComponentType<{ isMobileCard?: boolean }> }) {
+  return (
+    <div className="flex flex-col items-center w-full gap-[80px] pb-[120px] border-b-[6px] border-dashed border-[#333] last:border-b-0">
+      <div className="flex flex-col items-start w-[1280px] px-[20px] gap-[40px]">
+        <h3 className="font-['Lufga:Bold',sans-serif] text-white text-[84px] m-0 leading-[90px]">{title}</h3>
+        <p className="font-['Lufga:Regular',sans-serif] text-[#a0a0a0] text-[48px] leading-[70px] m-0 w-full">
+          {description}
+        </p>
+      </div>
+      <div className="relative overflow-hidden rounded-[80px]" style={{ width: "1280px", height: "1023px", backgroundColor: "#e9eced" }}>
+        <div style={{ transform: "scale(3.6553)", transformOrigin: "top left", width: "383px", height: "280px" }}>
+          <GraphicComponent isMobileCard={true} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileServicesList() {
+  return (
+    <div className="flex flex-col items-center w-full pb-[150px] pt-[60px]" style={{ gap: "120px" }}>
+      <MobileServiceItem
+        title="Content Creation"
+        description="From compelling copy to stunning visuals, we craft content that tells your brand's story and engages your audience across all platforms."
+        GraphicComponent={ImgIllustration}
+      />
+      <MobileServiceItem
+        title="Brand Identity"
+        description="We develop a cohesive visual language and comprehensive brand strategy that makes your business instantly recognizable and memorable."
+        GraphicComponent={ImgIllustration1}
+      />
+      <MobileServiceItem
+        title="Digital Marketing"
+        description="We leverage data-driven strategies across multiple digital channels to boost your online presence, maximize reach, and drive conversions."
+        GraphicComponent={ImgIllustration2}
+      />
+    </div>
+  );
+}
+
+function MobileContactCard({
+  icon,
+  title,
+  description,
+  actionText,
+  actionColor,
+  actionIcon
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  actionText: string;
+  actionColor: string;
+  actionIcon?: React.ReactNode;
+}) {
+  return (
+    <div className="bg-white flex flex-col items-center justify-center w-[1280px] rounded-[64px] p-[100px] gap-[80px] shadow-sm">
+      <div className="size-[140px] shrink-0 text-black">
+        {icon}
+      </div>
+      <div className="flex flex-col items-center gap-[40px] text-center w-full">
+        <h3 className="font-['Lufga:Bold',sans-serif] text-black text-[72px] m-0 leading-[80px] tracking-[-1px]">{title}</h3>
+        <p className="font-['Lufga:Regular',sans-serif] text-[#40444c] text-[48px] m-0 leading-[60px] max-w-[1200px]">
+          {description}
+        </p>
+      </div>
+      <div className="flex items-center gap-[24px] text-[48px] font-['Lufga:Bold',sans-serif] mt-[20px]" style={{ color: actionColor }}>
+        <p className={`m-0 leading-[50px] ${actionColor === '#5b616e' ? 'underline' : ''}`}>{actionText}</p>
+        {actionIcon && <div className="h-[48px] w-[30px] shrink-0">{actionIcon}</div>}
+      </div>
+    </div>
+  );
+}
+
+function MobileContactList() {
+  return (
+    <div className="flex flex-col items-center w-full pb-[150px] pt-[60px]" style={{ gap: "60px" }}>
+      <MobileContactCard
+        icon={
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26.6667 26.6667">
+            <path d={svgPaths.p30ade500} fill="currentColor" />
+          </svg>
+        }
+        title="Open Live Chat"
+        description="Donezo to feel like a natural extension of your team"
+        actionText="Send Message"
+        actionColor="#085AFF"
+        actionIcon={
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 5.18548 8.48525">
+            <path d={svgPaths.pea43800} fill="currentColor" />
+          </svg>
+        }
+      />
+      <MobileContactCard
+        icon={
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26.6667 26.6667">
+            <path d={svgPaths.p34206300} fill="currentColor" />
+          </svg>
+        }
+        title="Read FAQs"
+        description="Donezo to feel like a natural extension of your team"
+        actionText="Learn more"
+        actionColor="#5b616e"
+      />
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [heroHeight, setHeroHeight] = useState<number | string>('auto');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const updateHeight = () => {
+      setIsMobile(window.innerWidth < 768);
       const zoom = Math.min(1, window.innerWidth / 1440);
       const viewportHeight = window.innerHeight;
       
@@ -2138,35 +2368,42 @@ export default function HomePage() {
         className="flex flex-col items-center justify-between w-full relative z-10 box-border pb-[45px]"
         style={{ height: heroHeight }}
       >
-        <div className="h-[20px] md:h-[40px]" />
+        <div className="h-[40px]" />
         <Frame39 />
         <Frame34 />
       </div>
 
       {/* 2. About Us Section */}
-      <div id="about-section" className="flex flex-col items-center gap-[60px] w-full relative z-10">
-        <Frame46 />
-        <p className="[word-break:break-word] font-['Lufga:Regular',sans-serif] leading-[normal] not-italic text-[32px] text-center text-white tracking-[-0.32px] w-[1179px]">A digital creative studio focused on building thoughtful brands and digital experiences. By combining strategy, design, creativity, and technology, we help ambitious businesses stand out, connect with their audience, and grow with confidence. Our approach blends insight-driven thinking with purposeful execution to create work that is both visually compelling and strategically effective and purposeful.</p>
+      <div id="about-section" className="flex flex-col items-center w-full relative z-10" style={{ gap: isMobile ? 120 : 60 }}>
+        <SectionHeading text="About Us" isMobile={isMobile} />
+        <p
+          className="[word-break:break-word] font-['Lufga:Regular',sans-serif] not-italic text-center text-white tracking-[-0.32px]"
+          style={{
+            fontSize: isMobile ? 56 : 32,
+            lineHeight: isMobile ? "76px" : "normal",
+            width: isMobile ? 1300 : 1179,
+          }}
+        >A digital creative studio focused on building thoughtful brands and digital experiences. By combining strategy, design, creativity, and technology, we help ambitious businesses stand out, connect with their audience, and grow with confidence. Our approach blends insight-driven thinking with purposeful execution to create work that is both visually compelling and strategically effective and purposeful.</p>
         <Frame58 />
       </div>
 
       {/* 3. Our Projects Section */}
-      <div id="projects-section" className="flex flex-col items-center gap-[60px] w-full relative z-10">
-        <Frame40 />
-        <Frame45 />
+      <div id="projects-section" className="flex flex-col items-center w-full relative z-10" style={{ gap: isMobile ? 120 : 60 }}>
+        <SectionHeading text="Our Projects" isMobile={isMobile} />
+        {isMobile ? <MobileProjectsList /> : <Frame45 />}
         <Frame52 />
       </div>
 
       {/* 4. Our Services Section */}
-      <div id="services-section" className="flex flex-col items-center gap-[60px] w-full relative z-10">
-        <Frame44 />
-        <Frame47 />
+      <div id="services-section" className="flex flex-col items-center w-full relative z-10" style={{ gap: isMobile ? 120 : 60 }}>
+        <SectionHeading text="Our Services" isMobile={isMobile} />
+        {isMobile ? <MobileServicesList /> : <Frame47 />}
       </div>
 
       {/* 5. Send Us A Message Section */}
-      <div id="contact-section" className="flex flex-col items-center gap-[60px] w-full relative z-10">
-        <Frame53 />
-        <Frame54 />
+      <div id="contact-section" className="flex flex-col items-center w-full relative z-10" style={{ gap: isMobile ? 120 : 60 }}>
+        <SectionHeading text="Send Us A Message" isMobile={isMobile} />
+        {isMobile ? <MobileContactList /> : <Frame54 />}
       </div>
 
       <Header className="-translate-x-1/2 absolute bg-[rgba(0,0,0,0)] left-1/2 top-0 w-[1440px] z-50" />

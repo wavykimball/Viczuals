@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import imgT0 from '@/assets/images/project_0.png'
 import imgT1 from '@/assets/images/project_1.png'
 import imgT2 from '@/assets/images/project_2.png'
@@ -29,33 +29,28 @@ type CardProps = {
   service: string
   duration: string
   desc: string
+  isMobile?: boolean
 }
 
-// Card 1: image 480px tall, label 40px below with 8px gap → total slot = 528px
-// Card 2: image grows to fill all 528px, label fades out, radius rounds fully
-// Both the height and borderRadius animate in CSS — no flex/gap hacks.
-const CARD_SLOT   = 528   // constant outer height, never changes
-const IMG_DEFAULT = 480   // image height in card-1 state
-const IMG_EXPANDED = CARD_SLOT // image height in card-2 state
-
-function ProjectCard({ img, name, service, duration, desc }: CardProps) {
+function ProjectCard({ img, name, service, duration, desc, isMobile }: CardProps) {
   const [expanded, setExpanded] = useState(false)
-
   const ease = 'cubic-bezier(0.4, 0, 0.2, 1)'
 
+  const IMG_DEFAULT = isMobile ? 978 : 480
+  const CARD_SLOT = isMobile ? 1058 : 528
+  const IMG_EXPANDED = CARD_SLOT
+
   return (
-    // Outer slot — fixed height so the grid never shifts
     <div
       onClick={() => setExpanded(v => !v)}
       style={{
         height: CARD_SLOT,
-        width: 628,
+        width: isMobile ? '100%' : 628,
         position: 'relative',
         flexShrink: 0,
         cursor: 'pointer',
       }}
     >
-      {/* ── Image container: animates height + border-radius together ─── */}
       <div
         style={{
           position: 'absolute',
@@ -63,12 +58,11 @@ function ProjectCard({ img, name, service, duration, desc }: CardProps) {
           left: 0,
           right: 0,
           height: expanded ? IMG_EXPANDED : IMG_DEFAULT,
-          borderRadius: '32px 32px 0 0',
+          borderRadius: isMobile ? '64px 64px 0 0' : '32px 32px 0 0',
           overflow: 'hidden',
           transition: `height 0.38s ${ease}`,
         }}
       >
-        {/* Photo */}
         <img
           alt={name}
           src={img}
@@ -83,55 +77,53 @@ function ProjectCard({ img, name, service, duration, desc }: CardProps) {
           }}
         />
 
-        {/* Glassmorphism detail overlay — slides up from bottom */}
         <div
           style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
             right: 0,
-            height: 188,
+            height: isMobile ? 320 : 188,
             background: 'rgba(0,0,0,0.52)',
             backdropFilter: 'blur(14px)',
             WebkitBackdropFilter: 'blur(14px)',
             borderTop: '1px solid rgba(255,255,255,0.1)',
             display: 'flex',
             flexDirection: 'column',
-            padding: '7px 12px 0',
+            padding: isMobile ? '24px 40px 0' : '7px 12px 0',
             opacity: expanded ? 1 : 0,
             transform: expanded ? 'translateY(0)' : 'translateY(16px)',
             transition: `opacity 0.28s ${ease} ${expanded ? '0.08s' : '0s'}, transform 0.32s ${ease} ${expanded ? '0.06s' : '0s'}`,
             pointerEvents: 'none',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 40, flexShrink: 0 }}>
-            <span style={{ fontFamily: "'Lufga:Medium',sans-serif", fontWeight: 500, fontSize: 20, color: '#fff', letterSpacing: '-0.8px', whiteSpace: 'nowrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: isMobile ? 80 : 40, flexShrink: 0 }}>
+            <span style={{ fontFamily: "'Lufga:Medium',sans-serif", fontWeight: 500, fontSize: isMobile ? 40 : 20, color: '#fff', letterSpacing: '-0.8px', whiteSpace: 'nowrap' }}>
               {name}
             </span>
-            <span style={{ fontFamily: "'Lufga:Regular',sans-serif", fontWeight: 400, fontSize: 16, color: '#ffad08', letterSpacing: '-0.64px', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
+            <span style={{ fontFamily: "'Lufga:Regular',sans-serif", fontWeight: 400, fontSize: isMobile ? 32 : 16, color: '#ffad08', letterSpacing: '-0.64px', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>
               {service} — ({duration})
             </span>
           </div>
-          <div style={{ paddingTop: 10 }}>
-            <p style={{ fontFamily: "'Lufga:Regular',sans-serif", fontWeight: 400, fontSize: 14, color: '#e6efff', letterSpacing: '-0.3px', lineHeight: '22px', margin: 0, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
+          <div style={{ paddingTop: isMobile ? 24 : 10 }}>
+            <p style={{ fontFamily: "'Lufga:Regular',sans-serif", fontWeight: 400, fontSize: isMobile ? 28 : 14, color: '#e6efff', letterSpacing: '-0.3px', lineHeight: isMobile ? '40px' : '22px', margin: 0, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
               {desc}
             </p>
           </div>
         </div>
       </div>
 
-      {/* ── Below-image label (card 1) — fades out as image grows over it ─ */}
       <div
         style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
-          height: 40,
+          height: isMobile ? 80 : 40,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          fontSize: 24,
+          fontSize: isMobile ? 48 : 24,
           letterSpacing: '-0.96px',
           whiteSpace: 'nowrap',
           opacity: expanded ? 0 : 1,
@@ -139,14 +131,23 @@ function ProjectCard({ img, name, service, duration, desc }: CardProps) {
           pointerEvents: 'none',
         }}
       >
-        <span style={{ fontFamily: "'Lufga:Medium',sans-serif", fontWeight: 500, color: '#fff', lineHeight: '40px' }}>{name}</span>
-        <span style={{ fontFamily: "'Lufga:Regular',sans-serif", fontWeight: 400, color: '#b5b5b5', lineHeight: '40px' }}>{service}</span>
+        <span style={{ fontFamily: "'Lufga:Medium',sans-serif", fontWeight: 500, color: '#fff', lineHeight: isMobile ? '80px' : '40px' }}>{name}</span>
+        <span style={{ fontFamily: "'Lufga:Regular',sans-serif", fontWeight: 400, color: '#b5b5b5', lineHeight: isMobile ? '80px' : '40px' }}>{service}</span>
       </div>
     </div>
   )
 }
 
 export default function ProjectsPage() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const pairs: [typeof PROJECTS[0], typeof PROJECTS[0]][] = []
   for (let i = 0; i < PROJECTS.length; i += 2) {
     pairs.push([PROJECTS[i], PROJECTS[i + 1]])
@@ -161,14 +162,13 @@ export default function ProjectsPage() {
         background: '#000',
       }}
     >
-      {/* Heading */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          paddingTop: 161,
-          paddingBottom: 24,
+          paddingTop: isMobile ? 640 : 161,
+          paddingBottom: isMobile ? 80 : 24,
           position: 'relative',
         }}
       >
@@ -186,13 +186,13 @@ export default function ProjectsPage() {
           style={{
             fontFamily: "'Lufga:SemiBold', sans-serif",
             fontWeight: 600,
-            fontSize: 64,
-            lineHeight: '70px',
+            fontSize: isMobile ? 120 : 64,
+            lineHeight: isMobile ? '130px' : '70px',
             color: '#fff',
             textAlign: 'center',
             letterSpacing: '-1.92px',
             margin: 0,
-            width: 622,
+            width: '100%',
           }}
         >
           Our Projects
@@ -203,20 +203,26 @@ export default function ProjectsPage() {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 24,
+          gap: isMobile ? 80 : 24,
           alignItems: 'center',
-          padding: '24px 80px 80px',
+          padding: isMobile ? '24px 80px 160px' : '24px 80px 80px',
           width: '100%',
           maxWidth: 1440,
           margin: '0 auto',
         }}
       >
-        {pairs.map(([a, b], i) => (
-          <div key={i} style={{ display: 'flex', gap: 24, width: '100%' }}>
-            <ProjectCard {...a} />
-            {b && <ProjectCard {...b} />}
-          </div>
-        ))}
+        {isMobile ? (
+          PROJECTS.map((project, i) => (
+            <ProjectCard key={i} {...project} isMobile={isMobile} />
+          ))
+        ) : (
+          pairs.map(([a, b], i) => (
+            <div key={i} style={{ display: 'flex', gap: 24, width: '100%' }}>
+              <ProjectCard {...a} isMobile={isMobile} />
+              {b && <ProjectCard {...b} isMobile={isMobile} />}
+            </div>
+          ))
+        )}
       </div>
     </div>
   )
