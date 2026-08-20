@@ -42,31 +42,31 @@ body {
   font-display: swap;
 }
 
-/* ── Lufga → local load with Outfit fallback ─── */
+/* ── Lufga ─── */
 @font-face {
   font-family: 'Lufga:Regular';
-  src: local('Lufga Regular'), local('Lufga-Regular'), local('Lufga'), url('/fonts/Outfit.woff2') format('woff2');
+  src: url('/fonts/Lufga-Regular.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Lufga:Medium';
-  src: local('Lufga Medium'), local('Lufga-Medium'), local('Lufga'), url('/fonts/Outfit.woff2') format('woff2');
+  src: url('/fonts/Lufga-Medium.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Lufga:Bold';
-  src: local('Lufga Bold'), local('Lufga-Bold'), local('Lufga'), url('/fonts/Outfit.woff2') format('woff2');
+  src: url('/fonts/Lufga-Bold.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Lufga:SemiBold';
-  src: local('Lufga SemiBold'), local('Lufga-SemiBold'), local('Lufga'), url('/fonts/Outfit.woff2') format('woff2');
+  src: url('/fonts/Lufga-SemiBold.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
