@@ -3,10 +3,13 @@ import FooterContent from './FooterContent'
 
 export default function Footer({ onNavigate }: { onNavigate?: (page: 'home' | 'projects') => void }) {
   const [scale, setScale] = useState(1)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1440)
 
   useEffect(() => {
     const apply = () => {
-      setScale(Math.min(1, window.innerWidth / 1440))
+      const width = window.innerWidth
+      setScale(Math.min(1, width / 1440))
+      setIsMobile(width < 1440)
     }
     apply()
     window.addEventListener('resize', apply, { passive: true })
@@ -19,7 +22,7 @@ export default function Footer({ onNavigate }: { onNavigate?: (page: 'home' | 'p
         id="viczuals-footer"
         style={{
           position: 'relative',
-          width: '100%',
+          width: isMobile ? 1440 : '100%',
           height: 724,
           overflow: 'hidden',
           transformOrigin: 'top center',

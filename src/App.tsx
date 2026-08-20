@@ -64,14 +64,17 @@ export type Page = 'home' | 'projects'
 
 export default function App() {
   const [page, setPage] = useState<Page>('home')
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1440)
 
   /* ── Zoom scaling (replaces transform: scale)
      zoom does NOT create a new containing block, so position:sticky inside
      the page works correctly — which transform:scale breaks.               */
   useEffect(() => {
     const apply = () => {
-      const z = String(Math.min(1, window.innerWidth / 1440))
-      ;['viczuals-header', 'viczuals-page', 'viczuals-projects-page', 'viczuals-footer'].forEach(id => {
+      const width = window.innerWidth
+      setIsMobile(width < 1440)
+      const z = String(Math.min(1, width / 1440))
+      ;['viczuals-page', 'viczuals-projects-page', 'viczuals-footer'].forEach(id => {
         const el = document.getElementById(id) as HTMLElement | null
         if (el) el.style.zoom = z
       })
@@ -120,7 +123,7 @@ export default function App() {
         <>
           <div
             id="viczuals-page"
-            style={{ position: 'relative', width: '100%', height: 'auto' }}
+            style={{ position: 'relative', width: isMobile ? 1440 : '100%', height: 'auto' }}
           >
             <HomePage />
           </div>
@@ -138,7 +141,7 @@ export default function App() {
         <>
           <div
             id="viczuals-projects-page"
-            style={{ position: 'relative', width: '100%', height: 'auto' }}
+            style={{ position: 'relative', width: isMobile ? 1440 : '100%', height: 'auto' }}
           >
             <ProjectsPage />
           </div>
@@ -150,9 +153,11 @@ export default function App() {
       )}
 
       <style>{`
-        /* prevent horizontal scroll without creating a scroll container
-           (overflow-x:hidden on a non-root element would break sticky) */
-        body { overflow-x: clip; }
+        /* prevent horizontal scroll on both html and body to lock viewport on mobile */
+        html, body {
+          overflow-x: clip !important;
+          max-width: 100% !important;
+        }
 
         /* ── Hide the static raw header (SiteHeader replaces it) */
         #viczuals-page > div > div:last-child { display: none !important; }

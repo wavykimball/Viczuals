@@ -98,7 +98,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
           position: 'fixed',
           top: 0, left: 0, right: 0,
           zIndex: 201,
-          height: 88,
+          height: 96,
           display: 'flex',
           alignItems: 'center',
           transition: 'background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease',
@@ -166,7 +166,7 @@ export default function SiteHeader({ onNavigate, currentPage }: Props) {
         className="nav-overlay-panel"
         style={{
           position: 'fixed',
-          top: 88, left: 0, right: 0,
+          top: 96, left: 0, right: 0,
           height: 536,
           zIndex: 200,
           pointerEvents: menuOpen ? 'auto' : 'none',

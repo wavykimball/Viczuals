@@ -265,6 +265,13 @@ function Frame31() {
 function Frame34() {
   const containerRef = useRef<HTMLDivElement>(null);
   const speedRef = useRef(1.2);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   
   useEffect(() => {
     const el = containerRef.current;
@@ -289,71 +296,88 @@ function Frame34() {
     return () => cancelAnimationFrame(frameId);
   }, []);
 
+  const scale = isMobile ? 1.85 : 1;
+
   return (
     <div 
-      className="relative h-[416px] overflow-hidden w-full"
+      className="relative overflow-hidden w-full"
+      style={{ height: isMobile ? 770 : 416 }}
       onMouseEnter={() => { speedRef.current = 0.3; }}
       onMouseLeave={() => { speedRef.current = 1.2; }}
     >
-      <div 
-        ref={containerRef}
-        className="flex"
-        style={{ width: 'max-content' }}
+      <div
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          width: isMobile ? `${100 / scale}%` : "100%",
+        }}
       >
-        <div className="flex gap-[12px] items-center shrink-0 pr-[12px]">
-          <Frame29 />
-          <Frame30 />
-          <Frame32 />
-          <Frame33 />
-        </div>
-        <div className="flex gap-[12px] items-center shrink-0">
-          <Frame29 />
-          <Frame30 />
-          <Frame32 />
-          <Frame33 />
+        <div 
+          ref={containerRef}
+          className="flex"
+          style={{ width: "max-content" }}
+        >
+          <div className="flex gap-[12px] items-center shrink-0 pr-[12px]">
+            <Frame29 />
+            <Frame30 />
+            <Frame32 />
+            <Frame33 />
+          </div>
+          <div className="flex gap-[12px] items-center shrink-0">
+            <Frame29 />
+            <Frame30 />
+            <Frame32 />
+            <Frame33 />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function Label() {
+function Label({ isMobile }: { isMobile: boolean }) {
   return (
     <div className="content-stretch flex items-center justify-center px-[8px] py-[2px] relative shrink-0" data-name="label">
-      <p className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-black whitespace-nowrap">Contact Us</p>
+      <p
+        className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] not-italic relative shrink-0 text-black whitespace-nowrap"
+        style={{ fontSize: isMobile ? 56 : 14, lineHeight: isMobile ? "64px" : "20px" }}
+      >Contact Us</p>
     </div>
   );
 }
 
-function Label1() {
+function Label1({ isMobile }: { isMobile: boolean }) {
   return (
     <div className="content-stretch flex items-center justify-center px-[8px] py-[2px] relative shrink-0" data-name="label">
-      <p className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-white whitespace-nowrap">What we do</p>
+      <p
+        className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] not-italic relative shrink-0 text-white whitespace-nowrap"
+        style={{ fontSize: isMobile ? 56 : 14, lineHeight: isMobile ? "64px" : "20px" }}
+      >What we do</p>
     </div>
   );
 }
 
-function Frame48() {
+function Frame48({ isMobile }: { isMobile: boolean }) {
   const handleContactClick = () => {
-    const el = document.getElementById('contact-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById("contact-section");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleWhatWeDoClick = () => {
-    const el = document.getElementById('services-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById("services-section");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="content-stretch flex gap-[12px] items-start relative shrink-0">
+    <div className="content-stretch flex items-start relative shrink-0" style={{ gap: isMobile ? 48 : 12 }}>
       <div
         onClick={handleContactClick}
         className="group cursor-pointer bg-white relative rounded-[1000px] shrink-0"
         data-name="Button"
       >
         <div className="flex flex-row items-center justify-center overflow-clip rounded-[inherit] size-full">
-          <div className="content-stretch flex items-center justify-center p-[8px] relative size-full">
-            <Label />
+          <div className="content-stretch flex items-center justify-center relative size-full" style={{ padding: isMobile ? 36 : 8 }}>
+            <Label isMobile={isMobile} />
           </div>
         </div>
       </div>
@@ -363,12 +387,12 @@ function Frame48() {
         data-name="Button"
       >
         <div className="flex flex-row items-center justify-center overflow-clip rounded-[inherit] size-full">
-          <div className="content-stretch flex items-center justify-center p-[8px] relative size-full">
-            <Label1 />
-            <div className="relative shrink-0 size-[20px]" data-name="arrow-right-s-line">
+          <div className="content-stretch flex items-center justify-center relative size-full" style={{ padding: isMobile ? 36 : 8, gap: isMobile ? 16 : 8 }}>
+            <Label1 isMobile={isMobile} />
+            <div className="relative shrink-0" style={{ width: isMobile ? 64 : 20, height: isMobile ? 64 : 20 }} data-name="arrow-right-s-line">
               <div className="absolute inset-0 overflow-clip" data-name="arrow-right-s-line">
                 <div className="absolute inset-[23.49%_33.33%_23.48%_34.26%]" data-name="Vector">
-                  <svg className="absolute block inset-0 size-full" fill="none" height="10.6066" preserveAspectRatio="none" viewBox="0 0 6.48185 10.6066" width="6.48185">
+                  <svg className="absolute block inset-0 size-full" fill="none" height="100%" preserveAspectRatio="none" viewBox="0 0 6.48185 10.6066" width="100%">
                     <path d={svgPaths.p3b549c00} fill="white" id="Vector" />
                   </svg>
                 </div>
@@ -382,10 +406,28 @@ function Frame48() {
 }
 
 function Frame39() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="relative content-stretch flex flex-col gap-[24px] items-center w-[880px]">
-      <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Strategic Creative Growth Agency</p>
-      <Frame48 />
+    <div
+      className="relative content-stretch flex flex-col items-center"
+      style={{ gap: isMobile ? 70 : 24, width: isMobile ? 1440 : 880 }}
+    >
+      <p
+        className="[word-break:break-word] font-['Lufga:Bold',sans-serif] not-italic relative shrink-0 text-center text-white tracking-[-1.92px]"
+        style={{
+          fontSize: isMobile ? 148 : 64,
+          lineHeight: isMobile ? "152px" : "70px",
+          width: isMobile ? 1400 : 622,
+        }}
+      >Strategic Creative Growth Agency</p>
+      <Frame48 isMobile={isMobile} />
     </div>
   );
 }
@@ -2138,7 +2180,7 @@ export default function HomePage() {
         className="flex flex-col items-center justify-between w-full relative z-10 box-border pb-[45px]"
         style={{ height: heroHeight }}
       >
-        <div className="h-[20px] md:h-[40px]" />
+        <div className="h-[40px]" />
         <Frame39 />
         <Frame34 />
       </div>
