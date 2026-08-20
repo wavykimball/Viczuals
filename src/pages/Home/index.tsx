@@ -1,13 +1,13 @@
-import svgPaths from "./svg-lebbexjwfe";
-import imgImage23 from "./6b0944ba62b54812e6d292d9f03a9bf821bcf309.png";
-import imgImgFrame from "./4c0b3514e34590bd8e0b3b69e4d31946f4184e85.png";
-import imgImgFrame1 from "./a05a7e003a023b4fd2de6b739d260641bccd7050.png";
-import imgImgFrame2 from "./c1941e0d67190d97d258bb7af4830e9e2d04987c.png";
-import imgImgFrame3 from "./2a64c420d75dad61acaf9e786607ecd898d1dc00.png";
-import imgThumbnail from "./c7e117527c2ae892a0b25c22975008256076a702.png";
-import imgThumbnail1 from "./e809f7946a1f7de78bc6394604bbb56b5fc3500f.png";
-import imgThumbnail2 from "./ec48394c6fe4948d2e1248d4645879ea84990356.png";
-import imgExtContainer from "./ece298d0ec2c16f10310d45724b276a6035cb503.png";
+import svgPaths from "./svgPaths";
+import imgImage23 from '@/assets/images/hero_bg.png';
+import imgImgFrame from '@/assets/images/home_card_bg_1.png';
+import imgImgFrame1 from '@/assets/images/home_card_bg_2.png';
+import imgImgFrame2 from '@/assets/images/home_card_bg_3.png';
+import imgImgFrame3 from '@/assets/images/home_card_bg_4.png';
+import imgThumbnail from '@/assets/images/about_thumbnail.png';
+import imgThumbnail1 from '@/assets/images/home_about_img_1.png';
+import imgThumbnail2 from '@/assets/images/home_about_img_2.png';
+import imgExtContainer from '@/assets/images/home_glow_mask.png';
 type ComponentProps = {
   className?: string;
   property1?: "cancel-01" | "equal-sign" | "plus-sign";
@@ -263,7 +263,7 @@ function Frame31() {
 
 function Frame34() {
   return (
-    <div className="absolute h-[416px] left-0 overflow-x-auto overflow-y-clip top-[624px] w-[1440px]">
+    <div className="relative h-[416px] overflow-x-auto overflow-y-clip w-[1440px]">
       <Frame31 />
     </div>
   );
@@ -272,7 +272,7 @@ function Frame34() {
 function Label() {
   return (
     <div className="content-stretch flex items-center justify-center px-[8px] py-[2px] relative shrink-0" data-name="label">
-      <p className="[word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-black whitespace-nowrap">Contact Us</p>
+      <p className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-black whitespace-nowrap">Contact Us</p>
     </div>
   );
 }
@@ -280,22 +280,40 @@ function Label() {
 function Label1() {
   return (
     <div className="content-stretch flex items-center justify-center px-[8px] py-[2px] relative shrink-0" data-name="label">
-      <p className="[word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-white whitespace-nowrap">What we do</p>
+      <p className="group-hover:underline [word-break:break-word] font-['Lufga:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-white whitespace-nowrap">What we do</p>
     </div>
   );
 }
 
 function Frame48() {
+  const handleContactClick = () => {
+    const el = document.getElementById('contact-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleWhatWeDoClick = () => {
+    const el = document.getElementById('services-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="content-stretch flex gap-[12px] items-start relative shrink-0">
-      <div className="bg-white relative rounded-[1000px] shrink-0" data-name="Button">
+      <div
+        onClick={handleContactClick}
+        className="group cursor-pointer bg-white relative rounded-[1000px] shrink-0"
+        data-name="Button"
+      >
         <div className="flex flex-row items-center justify-center overflow-clip rounded-[inherit] size-full">
           <div className="content-stretch flex items-center justify-center p-[8px] relative size-full">
             <Label />
           </div>
         </div>
       </div>
-      <div className="relative rounded-[1000px] shrink-0" data-name="Button">
+      <div
+        onClick={handleWhatWeDoClick}
+        className="group cursor-pointer relative rounded-[1000px] shrink-0"
+        data-name="Button"
+      >
         <div className="flex flex-row items-center justify-center overflow-clip rounded-[inherit] size-full">
           <div className="content-stretch flex items-center justify-center p-[8px] relative size-full">
             <Label1 />
@@ -317,7 +335,7 @@ function Frame48() {
 
 function Frame39() {
   return (
-    <div className="-translate-x-1/2 absolute content-stretch flex flex-col gap-[24px] items-center left-1/2 top-[276px] w-[880px]">
+    <div className="relative content-stretch flex flex-col gap-[24px] items-center w-[880px]">
       <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Strategic Creative Growth Agency</p>
       <Frame48 />
     </div>
@@ -326,8 +344,7 @@ function Frame39() {
 
 function Frame40() {
   return (
-    <div className="absolute content-stretch flex flex-col items-center left-px pb-[24px] pt-[60px] top-[1840px] w-[1440px]">
-      <div aria-hidden className="absolute border-[#e6efff] border-b-[0.2px] border-solid border-t-[0.2px] inset-[-0.2px_0] pointer-events-none" />
+    <div className="relative content-stretch flex flex-col items-center w-[1440px]">
       <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Our Projects</p>
     </div>
   );
@@ -335,8 +352,7 @@ function Frame40() {
 
 function Frame46() {
   return (
-    <div className="absolute content-stretch flex flex-col items-center left-px pb-[24px] pt-[60px] top-[1040px] w-[1440px]">
-      <div aria-hidden className="absolute border-[#e6efff] border-b-[0.2px] border-solid border-t-[0.2px] inset-[-0.2px_0] pointer-events-none" />
+    <div className="relative content-stretch flex flex-col items-center w-[1440px]">
       <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">About Us</p>
     </div>
   );
@@ -344,8 +360,7 @@ function Frame46() {
 
 function Frame44() {
   return (
-    <div className="-translate-x-1/2 absolute content-stretch flex flex-col items-center left-[calc(50%+2px)] pb-[24px] pt-[60px] top-[4170px] w-[1440px]">
-      <div aria-hidden className="absolute border-[#e6efff] border-b-[0.2px] border-solid border-t-[0.2px] inset-[-0.2px_0] pointer-events-none" />
+    <div className="relative content-stretch flex flex-col items-center w-[1440px]">
       <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Our Services</p>
     </div>
   );
@@ -353,8 +368,7 @@ function Frame44() {
 
 function Frame53() {
   return (
-    <div className="-translate-x-1/2 absolute content-stretch flex flex-col items-center left-[calc(50%+2px)] pb-[24px] pt-[60px] top-[5004px] w-[1440px]">
-      <div aria-hidden className="absolute border-[#e6efff] border-b-[0.2px] border-solid border-t-[0.2px] inset-[-0.2px_0] pointer-events-none" />
+    <div className="relative content-stretch flex flex-col items-center w-[1440px]">
       <p className="[word-break:break-word] font-['Lufga:Bold',sans-serif] leading-[70px] not-italic relative shrink-0 text-[64px] text-center text-white tracking-[-1.92px] w-[622px]">Send Us A Message</p>
     </div>
   );
@@ -434,7 +448,7 @@ function Content6() {
       <div className="flex flex-col font-['Lufga:Medium',sans-serif] justify-center relative shrink-0 text-[#666] text-[12px] tracking-[-0.24px] w-full">
         <p className="leading-[16px]">TIMELINE</p>
       </div>
-      <div className="flex flex-col font-['Satoshi:Medium',sans-serif] justify-center relative shrink-0 text-[#141414] text-[14px] tracking-[-0.28px] w-full">
+      <div className="flex flex-col font-['Lufga:Medium',sans-serif] justify-center relative shrink-0 text-[#141414] text-[14px] tracking-[-0.28px] w-full">
         <p className="leading-[16px]">4 Weeks</p>
       </div>
     </div>
@@ -447,7 +461,7 @@ function Content7() {
       <div className="flex flex-col font-['Lufga:Medium',sans-serif] justify-center relative shrink-0 text-[#666] text-[12px] tracking-[-0.24px] w-full">
         <p className="leading-[16px]">SERVICES</p>
       </div>
-      <div className="flex flex-col font-['Satoshi:Medium',sans-serif] justify-center relative shrink-0 text-[#141414] text-[14px] tracking-[-0.28px] w-full">
+      <div className="flex flex-col font-['Lufga:Medium',sans-serif] justify-center relative shrink-0 text-[#141414] text-[14px] tracking-[-0.28px] w-full">
         <p className="leading-[16px]">Animation, Creative Direction, Web Design</p>
       </div>
     </div>
@@ -777,7 +791,7 @@ function Frame41() {
 
 function Frame45() {
   return (
-    <div className="absolute h-[1746.112px] left-[14.67px] pointer-events-none top-[2094px] w-[1410.186px]">
+    <div className="relative h-[1746.112px] w-[1410.186px]">
       <Frame43 />
       <Frame42 />
       <Frame41 />
@@ -834,7 +848,7 @@ function Frame1() {
   return (
     <div className="absolute bg-white content-stretch drop-shadow-[0px_2px_2px_rgba(148,165,168,0.25)] flex gap-[16px] items-center justify-center left-[16px] pl-[8px] pr-[16px] py-[8px] rounded-[99px] top-[32px]">
       <Icon />
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Videography</p>
       </div>
     </div>
@@ -864,7 +878,7 @@ function Icon1() {
 function Frame3() {
   return (
     <div className="content-stretch flex items-center justify-center relative shrink-0">
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Brand Videos</p>
       </div>
     </div>
@@ -903,7 +917,7 @@ function Icon2() {
 function Frame4() {
   return (
     <div className="content-stretch flex items-center justify-center relative shrink-0">
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Animation</p>
       </div>
     </div>
@@ -943,7 +957,7 @@ function Frame2() {
   return (
     <div className="content-stretch flex gap-[16px] items-center justify-center relative shrink-0">
       <Icon3 />
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Brand Guidelines</p>
       </div>
     </div>
@@ -1034,7 +1048,7 @@ function Frame5() {
   return (
     <div className="absolute bg-white content-stretch drop-shadow-[0px_2px_2px_rgba(148,165,168,0.25)] flex gap-[16px] items-center justify-center left-[16px] pl-[8px] pr-[16px] py-[8px] rounded-[99px] top-[32px]">
       <Icon4 />
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Logo Design</p>
       </div>
     </div>
@@ -1064,7 +1078,7 @@ function Icon5() {
 function Frame6() {
   return (
     <div className="content-stretch flex items-center justify-center relative shrink-0">
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Visual Identity</p>
       </div>
     </div>
@@ -1103,7 +1117,7 @@ function Icon6() {
 function Frame7() {
   return (
     <div className="content-stretch flex items-center justify-center relative shrink-0">
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Brand Strategy</p>
       </div>
     </div>
@@ -1143,7 +1157,7 @@ function Frame8() {
   return (
     <div className="content-stretch flex gap-[16px] items-center justify-center relative shrink-0">
       <Icon7 />
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Brand Guidelines</p>
       </div>
     </div>
@@ -1234,7 +1248,7 @@ function Frame9() {
   return (
     <div className="absolute bg-white content-stretch drop-shadow-[0px_2px_2px_rgba(148,165,168,0.25)] flex gap-[16px] items-center justify-center left-[16px] pl-[8px] pr-[16px] py-[8px] rounded-[99px] top-[32px]">
       <Icon8 />
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Auto-Track Changes</p>
       </div>
     </div>
@@ -1264,7 +1278,7 @@ function Icon9() {
 function Frame10() {
   return (
     <div className="content-stretch flex items-center justify-center relative shrink-0">
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Analytical Stats</p>
       </div>
     </div>
@@ -1303,7 +1317,7 @@ function Icon10() {
 function Frame11() {
   return (
     <div className="content-stretch flex items-center justify-center relative shrink-0">
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#323c3e] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Custom Analytics</p>
       </div>
     </div>
@@ -1343,7 +1357,7 @@ function Frame12() {
   return (
     <div className="content-stretch flex gap-[16px] items-center justify-center relative shrink-0">
       <Icon11 />
-      <div className="[word-break:break-word] flex flex-col font-['General_Sans:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
+      <div className="[word-break:break-word] flex flex-col font-['Lufga:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#1c2122] text-[14px] whitespace-nowrap">
         <p className="leading-[24px]">Report Log</p>
       </div>
     </div>
@@ -1387,7 +1401,7 @@ function Card2() {
 
 function Frame47() {
   return (
-    <div className="-translate-x-1/2 absolute content-stretch flex gap-[24px] items-center justify-center left-[calc(50%+2px)] px-[48px] top-[4424px] w-[1440px]">
+    <div className="relative content-stretch flex gap-[24px] items-center justify-center px-[48px] w-[1440px]">
       <Card />
       <Card1 />
       <Card2 />
@@ -1493,7 +1507,7 @@ function Frame23() {
 
 function Frame54() {
   return (
-    <div className="-translate-x-1/2 absolute content-stretch flex h-[262px] items-center justify-center left-[calc(50%+2px)] px-[80px] top-[5258px] w-[1440px]">
+    <div className="relative content-stretch flex h-[262px] items-center justify-center px-[80px] w-[1440px]">
       <Frame23 />
     </div>
   );
@@ -1633,7 +1647,7 @@ function Frame51() {
 
 function Frame52() {
   return (
-    <div className="absolute bg-[#085aff] h-[140px] left-[2px] overflow-clip right-[-2px] top-[4030px]">
+    <div className="relative bg-[#085aff] h-[140px] overflow-clip w-[1440px]">
       <Frame51 />
     </div>
   );
@@ -1796,7 +1810,7 @@ function InerContainer() {
     <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-black h-[681px] left-1/2 overflow-clip rounded-[24px] top-[calc(50%-0.5px)] w-[1400px]" data-name="iner container">
       <ViczualsWhiteLogo />
       <Frame38 />
-      <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Inter_Tight:Regular',sans-serif] justify-center leading-[0] left-[64px] not-italic text-[#6b6b6b] text-[12px] top-[164px] tracking-[0.5px] w-[411px]">
+      <div className="-translate-y-1/2 [word-break:break-word] absolute flex flex-col font-['Lufga:Regular',sans-serif] justify-center leading-[0] left-[64px] not-italic text-[#6b6b6b] text-[12px] top-[164px] tracking-[0.5px] w-[411px]">
         <p className="leading-[16px]">©2026 Viczuals All Rights Reserved.</p>
       </div>
       <div className="absolute left-[20px] size-[19px] top-[18px]">
@@ -1979,34 +1993,54 @@ function Frame59() {
 
 function Frame58() {
   return (
-    <div className="absolute bg-[#085aff] h-[140px] left-[2px] overflow-clip right-[-2px] top-[1700px]">
+    <div className="relative bg-[#085aff] h-[140px] overflow-clip w-[1440px]">
       <Frame59 />
     </div>
   );
 }
 
-export default function HeaderVarioUi() {
+export default function HomePage() {
   return (
-    <div className="bg-black relative size-full" data-name="Header - Vario UI">
-      <div className="-translate-x-1/2 absolute h-[1279px] left-[calc(50%+0.5px)] top-0 w-[1537px]" data-name="image 23">
+    <div className="bg-black flex flex-col items-center gap-[100px] w-[1440px] pt-[120px] pb-[40px] relative" data-name="Header - Vario UI">
+      {/* Background images */}
+      <div className="-translate-x-1/2 absolute h-[1279px] left-[calc(50%+0.5px)] top-0 w-[1537px] pointer-events-none" data-name="image 23">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage23} />
       </div>
-      <div className="-translate-x-1/2 absolute bg-gradient-to-b from-[8.285%] from-[rgba(20,58,162,0)] h-[836px] left-1/2 to-[79.337%] to-black top-[463px] w-[1440px]" data-name="bg" />
-      <Frame34 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[416px] left-[calc(50%+1px)] top-[calc(50%-2736px)] w-[1440px]" data-name="overlay" />
-      <Frame39 />
-      <Frame40 />
-      <Frame46 />
-      <Frame44 />
-      <Frame53 />
-      <Frame45 />
-      <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Lufga:Regular',sans-serif] leading-[normal] left-[calc(50%+0.5px)] not-italic text-[32px] text-center text-white top-[1244px] tracking-[-0.32px] w-[1179px]">A digital creative studio focused on building thoughtful brands and digital experiences. By combining strategy, design, creativity, and technology, we help ambitious businesses stand out, connect with their audience, and grow with confidence. Our approach blends insight-driven thinking with purposeful execution to create work that is both visually compelling and strategically effective and purposeful.</p>
-      <Frame47 />
-      <Frame54 />
-      <Frame52 />
-      <ExtContainer />
-      <Frame58 />
-      <Header className="-translate-x-1/2 absolute bg-[rgba(0,0,0,0)] left-1/2 top-0 w-[1440px]" />
+      <div className="-translate-x-1/2 absolute bg-gradient-to-b from-[8.285%] from-[rgba(20,58,162,0)] h-[836px] left-1/2 to-[79.337%] to-black top-[463px] w-[1440px] pointer-events-none" data-name="bg" />
+
+      {/* 1. Hero Section */}
+      <div className="flex flex-col items-center gap-[60px] w-full relative z-10">
+        <Frame39 />
+        <Frame34 />
+      </div>
+
+      {/* 2. About Us Section */}
+      <div id="about-section" className="flex flex-col items-center gap-[60px] w-full relative z-10">
+        <Frame46 />
+        <p className="[word-break:break-word] font-['Lufga:Regular',sans-serif] leading-[normal] not-italic text-[32px] text-center text-white tracking-[-0.32px] w-[1179px]">A digital creative studio focused on building thoughtful brands and digital experiences. By combining strategy, design, creativity, and technology, we help ambitious businesses stand out, connect with their audience, and grow with confidence. Our approach blends insight-driven thinking with purposeful execution to create work that is both visually compelling and strategically effective and purposeful.</p>
+        <Frame58 />
+      </div>
+
+      {/* 3. Our Projects Section */}
+      <div id="projects-section" className="flex flex-col items-center gap-[60px] w-full relative z-10">
+        <Frame40 />
+        <Frame45 />
+        <Frame52 />
+      </div>
+
+      {/* 4. Our Services Section */}
+      <div id="services-section" className="flex flex-col items-center gap-[60px] w-full relative z-10">
+        <Frame44 />
+        <Frame47 />
+      </div>
+
+      {/* 5. Send Us A Message Section */}
+      <div id="contact-section" className="flex flex-col items-center gap-[60px] w-full relative z-10">
+        <Frame53 />
+        <Frame54 />
+      </div>
+
+      <Header className="-translate-x-1/2 absolute bg-[rgba(0,0,0,0)] left-1/2 top-0 w-[1440px] z-50" />
     </div>
   );
 }
